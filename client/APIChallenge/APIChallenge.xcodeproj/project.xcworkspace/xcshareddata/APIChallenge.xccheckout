@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>98D26D05-BE5E-409C-8659-44658D455F97</string>
+	<key>IDESourceControlProjectName</key>
+	<string>APIChallenge</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E53AC93A8A6067BEAF2C556D368611B1785806A4</key>
+		<string>https://github.com/happymap/UberChallenge.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>client/APIChallenge/APIChallenge.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E53AC93A8A6067BEAF2C556D368611B1785806A4</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/happymap/UberChallenge.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E53AC93A8A6067BEAF2C556D368611B1785806A4</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E53AC93A8A6067BEAF2C556D368611B1785806A4</string>
+			<key>IDESourceControlWCCName</key>
+			<string>UberChallenge</string>
+		</dict>
+	</array>
+</dict>
+</plist>
