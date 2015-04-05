@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "UberLoginViewController.h"
+#import "constants.h"
 
 @interface LoginViewController ()
 
@@ -15,11 +16,12 @@
 
 @implementation LoginViewController {
     UberLoginViewController *loginModal;
+    NSOperationQueue *queue;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    queue = [[NSOperationQueue alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,6 +51,25 @@
 
 /*UberLoginDelegate*/
 -(void)authDismiss:(NSString *)authCode {
+    NSString *urlString = TOKEN_URL;
+    NSString *params = [[NSString alloc] initWithFormat:@"client_secret=%@&client_id=%@&grant_type=authorization_code&redirect_uri=%@&code=%@", CLIENT_SECRET, CLIENT_ID, CALLBACK_URL, authCode];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: urlString]];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[params dataUsingEncoding:NSUTF8StringEncoding]];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if([data length] > 0 && error == nil) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                NSError *parseErr = nil;
+                NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:data] options:NSJSONReadingMutableLeaves error:&parseErr];
+                
+                NSString *token = [res objectForKey:@"access_token"];
+                long *expiresIn = [[res objectForKey:@"expires_in"] longValue];
+                NSString *refreshToken = [res objectForKey:@"refresh_token"];
+                
+                NSLog(@"token: %@, expires: %ld, refreshToken: %@", token, expiresIn, refreshToken);
+            }];
+        }
+    }];
     NSLog(@"dismissed %@", authCode);
 }
 
