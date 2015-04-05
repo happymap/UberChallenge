@@ -8,6 +8,7 @@
 
 #import "UberLoginViewController.h"
 #import "constants.h"
+#import "LoginViewController.h"
 
 @interface UberLoginViewController ()
 
@@ -19,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消"
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                                                              style:UIBarButtonItemStyleBordered target:self
                                                                             action:@selector(cancelAction:)];
     NSURL *nsUrl = [NSURL URLWithString:AUTH_URL];
@@ -33,8 +34,15 @@
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
-    return false;
+    NSString *currentUrl = [[request URL] absoluteString];
+    currentUrl = [NSString stringWithCString:[currentUrl cStringUsingEncoding:NSUTF8StringEncoding] encoding:NSNonLossyASCIIStringEncoding];
+    if([currentUrl rangeOfString:CALLBACK_URL].location != NSNotFound) {
+        NSArray *tempArray = [currentUrl componentsSeparatedByString:@"code="];
+        NSString *authCode = [tempArray objectAtIndex:1];
+        [delegate authDismiss: authCode];
+        return false;
+    }
+    return true;
 }
 
 -(IBAction)cancelAction:(id)sender {
