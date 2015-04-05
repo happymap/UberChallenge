@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# UberChallenge
-=======
 Example Uber app for developers
 ==============================
 
@@ -57,4 +54,3 @@ Making Requests
 ---------------
 
 The base for all requests is https://api.uber.com/v1/, to find a list of all available endpoints, please visit: https://developer.uber.com/v1/endpoints/
->>>>>>> r1remote/master
