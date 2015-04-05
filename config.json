@@ -1,9 +1,9 @@
 {
     "access_token_url": "https://login.uber.com/oauth/token",
     "authorize_url": "https://login.uber.com/oauth/authorize",
-    "base_url": "https://login.uber.com/",
+    "base_url": "http://localhost:7000/submit",
     "scopes": ["profile", "history_lite"],
-    "name": "Sample app",
+    "name": "MyDemo-001",
     "base_uber_url": "https://api.uber.com/v1/",
     "base_uber_url_v1_1" : "https://api.uber.com/v1.1/",
     "start_latitude": "37.781955",
