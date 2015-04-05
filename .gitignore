@@ -3,3 +3,4 @@
 .coverage
 env/
 setenv.sh
+.DS_Store
