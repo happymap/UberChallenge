@@ -10,7 +10,7 @@
 
 @protocol UberLoginDelegate
 
--(void)authDismiss;
+-(void)authDismiss:(NSString *)authCode;
 
 @end
 

@@ -43,13 +43,13 @@
     loginModal = [[UberLoginViewController alloc] init];
     [loginModal setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     loginModal.delegate = self;
-//    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginModal];
-//    [self presentViewController:navCon animated:NO completion:nil];
+    UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginModal];
+    [self presentViewController:navCon animated:NO completion:nil];
 }
 
 /*UberLoginDelegate*/
-- (void) authDismiss {
-    NSLog(@"dismissed");
+-(void)authDismiss:(NSString *)authCode {
+    NSLog(@"dismissed %@", authCode);
 }
 
 @end
