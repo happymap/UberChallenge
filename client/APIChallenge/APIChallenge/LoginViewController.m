@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "UberLoginViewController.h"
 #import "constants.h"
+#import "util.h"
 
 @interface LoginViewController ()
 
@@ -63,14 +64,22 @@
                 NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:data] options:NSJSONReadingMutableLeaves error:&parseErr];
                 
                 NSString *token = [res objectForKey:@"access_token"];
-                long *expiresIn = [[res objectForKey:@"expires_in"] longValue];
+                long expiresIn = [[res objectForKey:@"expires_in"] longValue];
                 NSString *refreshToken = [res objectForKey:@"refresh_token"];
                 
-                NSLog(@"token: %@, expires: %ld, refreshToken: %@", token, expiresIn, refreshToken);
+                NSLog(@"%ld", expiresIn);
+                
+                [util updateKey:@"token" withValue:token];
+                [util updateKey:@"expiresIn" withValue:[[NSNumber numberWithLong:expiresIn] stringValue]];
+                [util updateKey:@"refreshToken" withValue:refreshToken];
+                
+                [loginModal dismissViewControllerAnimated:YES completion:nil];
+                [self performSegueWithIdentifier:@"loginSegue" sender:self];
             }];
+        } else {
+            [loginModal dismissViewControllerAnimated:YES completion:nil];
         }
     }];
-    NSLog(@"dismissed %@", authCode);
 }
 
 @end
