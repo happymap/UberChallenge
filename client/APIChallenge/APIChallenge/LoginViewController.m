@@ -10,6 +10,7 @@
 #import "UberLoginViewController.h"
 #import "constants.h"
 #import "util.h"
+#import "KeychainWrapper.h"
 
 @interface LoginViewController ()
 
@@ -22,7 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    queue = [[NSOperationQueue alloc] init];
+    
+    if ([util ifLoggedIn]) {
+        [self performSegueWithIdentifier:@"loginSegue" sender:self];
+    } else {
+        queue = [[NSOperationQueue alloc] init];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

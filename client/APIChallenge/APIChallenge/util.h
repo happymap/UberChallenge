@@ -12,6 +12,7 @@
 @interface util : NSObject
 
 + (void)updateKey:(NSString *)key withValue:(NSString *)value;
++ (BOOL)ifLoggedIn;
 
 @end
 

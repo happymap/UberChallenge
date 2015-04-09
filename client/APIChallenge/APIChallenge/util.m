@@ -24,4 +24,11 @@
     }
 }
 
++(BOOL)ifLoggedIn
+{
+    return [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"] &&
+    [KeychainWrapper keychainStringFromMatchingIdentifier:@"expiresIn"] &&
+    [KeychainWrapper keychainStringFromMatchingIdentifier:@"refreshToken"];
+}
+
 @end
