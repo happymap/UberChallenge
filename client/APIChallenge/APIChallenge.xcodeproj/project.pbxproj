@@ -10,6 +10,7 @@
 		810347FC1AD0FCEF00D997BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 810347FB1AD0FCEF00D997BB /* Main.storyboard */; };
 		816854E21AD4F770007A0FAF /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E11AD4F770007A0FAF /* KeychainWrapper.m */; };
 		816854E51AD4F960007A0FAF /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E41AD4F960007A0FAF /* util.m */; };
+		816854E81AD7986F007A0FAF /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E71AD7986F007A0FAF /* StartViewController.m */; };
 		818892121AD0C3F10078FDDB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 818892111AD0C3F10078FDDB /* main.m */; };
 		818892151AD0C3F10078FDDB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 818892141AD0C3F10078FDDB /* AppDelegate.m */; };
 		8188921D1AD0C3F10078FDDB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8188921C1AD0C3F10078FDDB /* Images.xcassets */; };
@@ -36,6 +37,8 @@
 		816854E11AD4F770007A0FAF /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		816854E31AD4F8C8007A0FAF /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
 		816854E41AD4F960007A0FAF /* util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = util.m; sourceTree = "<group>"; };
+		816854E61AD7986F007A0FAF /* StartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StartViewController.h; sourceTree = "<group>"; };
+		816854E71AD7986F007A0FAF /* StartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StartViewController.m; sourceTree = "<group>"; };
 		8188920C1AD0C3F10078FDDB /* APIChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APIChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		818892101AD0C3F10078FDDB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		818892111AD0C3F10078FDDB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -99,6 +102,8 @@
 				818892141AD0C3F10078FDDB /* AppDelegate.m */,
 				818892351AD0D9C00078FDDB /* LoginViewController.h */,
 				818892361AD0D9C00078FDDB /* LoginViewController.m */,
+				816854E61AD7986F007A0FAF /* StartViewController.h */,
+				816854E71AD7986F007A0FAF /* StartViewController.m */,
 				810347FB1AD0FCEF00D997BB /* Main.storyboard */,
 				8188921C1AD0C3F10078FDDB /* Images.xcassets */,
 				8188921E1AD0C3F10078FDDB /* LaunchScreen.xib */,
@@ -259,6 +264,7 @@
 				818892371AD0D9C00078FDDB /* LoginViewController.m in Sources */,
 				816854E51AD4F960007A0FAF /* util.m in Sources */,
 				818892151AD0C3F10078FDDB /* AppDelegate.m in Sources */,
+				816854E81AD7986F007A0FAF /* StartViewController.m in Sources */,
 				816854E21AD4F770007A0FAF /* KeychainWrapper.m in Sources */,
 				8188923C1AD0EA760078FDDB /* UberLoginViewController.m in Sources */,
 				818892121AD0C3F10078FDDB /* main.m in Sources */,

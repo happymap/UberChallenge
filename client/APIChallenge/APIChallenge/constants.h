@@ -13,3 +13,6 @@
 #define TOKEN_URL @"https://login.uber.com/oauth/token"
 #define CLIENT_SECRET @"z9UdMsZWOy9fCaxP33xPu-hiGXzFEZp8MyeziVlg"
 #define CLIENT_ID @"c83AN3Jf2MAwZdIwhpcpv4NNZddAs2BH"
+
+#define GEOCODE_KEY @"AIzaSyCE18o874T69B2mxhxHvxSQB5ySFgxvEHg"
+#define GEOCODE_URL @"https://maps.googleapis.com/maps/api/geocode/json"

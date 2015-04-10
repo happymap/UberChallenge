@@ -55,10 +55,10 @@
             </objects>
             <point key="canvasLocation" x="303" y="-436"/>
         </scene>
-        <!--View Controller-->
+        <!--Start View Controller-->
         <scene sceneID="kBb-k3-exF">
             <objects>
-                <viewController id="W1n-ij-Eze" sceneMemberID="viewController">
+                <viewController id="W1n-ij-Eze" customClass="StartViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LNC-Cr-lOt"/>
                         <viewControllerLayoutGuide type="bottom" id="BVB-nv-uKr"/>
@@ -68,7 +68,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Tg-BB-pgi">
-                                <rect key="frame" x="16" y="63" width="288" height="30"/>
+                                <rect key="frame" x="16" y="63" width="222" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -97,10 +97,23 @@
                                     <segue destination="378-su-ZkP" kind="push" id="lUq-Vl-acf"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfh-KK-bWM">
+                                <rect key="frame" x="258" y="62" width="48" height="30"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="search:" destination="W1n-ij-Eze" eventType="touchUpInside" id="m5w-87-db5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="8HI-Gc-khY"/>
+                    <connections>
+                        <outlet property="addressField" destination="2Tg-BB-pgi" id="ycu-AA-x9X"/>
+                        <outlet property="searchBtn" destination="sfh-KK-bWM" id="4Yp-1C-73A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScN-V1-AtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
