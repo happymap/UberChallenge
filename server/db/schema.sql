@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS User;
 
 /* User table is to store basic user profile data.*/
 CREATE TABLE User(
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	/* From Uber user profile data */
 	token VARCHAR(255), # not sure how long the access token is in uber
 	first_name VARCHAR(30),
@@ -23,7 +23,7 @@ DROP TABLE IF EXISTS Request;
 /* Request table is used to store basic request information for one app request (not uber request) per user */
 CREATE TABLE Request (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	user_id INT, # reference to User's id
+	user_id BIGINT, # reference to User's id
 	depart_latitude DECIMAL(10,6),
 	depart_longtitude DECIMAL(10,6),
 	dest_latitude DECIMAL(10,6),
@@ -40,6 +40,24 @@ CREATE TABLE Request (
 	is_find TINYINT(1), # If we find at least one uber that can satisfy user's request
 	uber_request_id VARCHAR(36) # uuid
 );
+
+DROP  TABLE IF EXISTS PriceInquiry;
+/* PriceInquiry table is used to store best estimated price info from Uber's estimate price API
+   Note: Uber's response will be a set of products but we only store the one with best upper bound
+   price here.*/
+CREATE TABLE PriceInquiry (
+	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	request_id BIGINT, # reference to Request's id
+ 	current_latitude DECIMAL(10,6),
+	current_longtitude DECIMAL(10,6),
+	best_price_upper INT, #the lowest upper bound price we get
+	uber_product_id VARCHAR(36), # the product id with that price
+	uber_currency VARCHAR(5), # ISO 4217 currency code
+	uber_display_name VARCHAR(36),
+	uber_duration INT, # Expected activity duration (in seconds). Always show duration in minutes.
+	distance FLOAT # Expected activity distance (in miles).
+);
+
 
 
 
