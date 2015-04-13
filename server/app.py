@@ -4,6 +4,8 @@ import json
 import os
 from urlparse import urlparse
 
+from models import Priceinquiry, Request, User
+
 from flask import Flask, render_template, request, redirect, session
 from flask_sslify import SSLify
 from rauth import OAuth2Service
