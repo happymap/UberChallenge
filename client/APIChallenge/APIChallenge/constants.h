@@ -16,3 +16,5 @@
 
 #define GEOCODE_KEY @"AIzaSyCE18o874T69B2mxhxHvxSQB5ySFgxvEHg"
 #define GEOCODE_URL @"https://maps.googleapis.com/maps/api/geocode/json"
+
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)

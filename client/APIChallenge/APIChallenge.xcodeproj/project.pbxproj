@@ -19,6 +19,7 @@
 		818892371AD0D9C00078FDDB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818892361AD0D9C00078FDDB /* LoginViewController.m */; };
 		8188923C1AD0EA760078FDDB /* UberLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8188923A1AD0EA760078FDDB /* UberLoginViewController.m */; };
 		8188923D1AD0EA760078FDDB /* UberLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8188923B1AD0EA760078FDDB /* UberLoginViewController.xib */; };
+		81FAD3211ADE34C40061FA1C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FAD3201ADE34C40061FA1C /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		8188923A1AD0EA760078FDDB /* UberLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberLoginViewController.m; sourceTree = "<group>"; };
 		8188923B1AD0EA760078FDDB /* UberLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberLoginViewController.xib; sourceTree = "<group>"; };
 		8188923F1AD0EEC40078FDDB /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		81FAD3201ADE34C40061FA1C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81FAD3211ADE34C40061FA1C /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +81,7 @@
 		818892031AD0C3F10078FDDB = {
 			isa = PBXGroup;
 			children = (
+				81FAD3201ADE34C40061FA1C /* MapKit.framework */,
 				8188920E1AD0C3F10078FDDB /* APIChallenge */,
 				818892281AD0C3F10078FDDB /* APIChallengeTests */,
 				8188920D1AD0C3F10078FDDB /* Products */,
@@ -209,6 +213,11 @@
 				TargetAttributes = {
 					8188920B1AD0C3F10078FDDB = {
 						CreatedOnToolsVersion = 6.2;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					818892241AD0C3F10078FDDB = {
 						CreatedOnToolsVersion = 6.2;
@@ -382,6 +391,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = APIChallenge/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -392,6 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = APIChallenge/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

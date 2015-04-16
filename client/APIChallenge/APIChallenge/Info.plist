@@ -36,5 +36,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Need your location</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>The spirit of stack overflow is coders helping coders</string>
 </dict>
 </plist>

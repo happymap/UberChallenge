@@ -19,7 +19,51 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // request queue
     queue = [[NSOperationQueue alloc] init];
+    
+    // localtion
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    if(IS_OS_8_OR_LATER){
+        NSUInteger code = [CLLocationManager authorizationStatus];
+        if (code == kCLAuthorizationStatusNotDetermined && ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)] || [self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])) {
+            // choose one request according to your business.
+            if([[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationAlwaysUsageDescription"]){
+                [self.locationManager requestAlwaysAuthorization];
+            } else if([[NSBundle mainBundle] objectForInfoDictionaryKey:@"NSLocationWhenInUseUsageDescription"]) {
+                [self.locationManager  requestWhenInUseAuthorization];
+            } else {
+                NSLog(@"Info.plist does not contain NSLocationAlwaysUsageDescription or NSLocationWhenInUseUsageDescription");
+            }
+        }
+    }
+    [self.locationManager startUpdatingLocation];
+    
+    // map
+    self.mapView.delegate = self;
+//    self.mapView.showsUserLocation = NO;
+    [self.mapView setMapType:MKMapTypeStandard];
+    [self.mapView setZoomEnabled:YES];
+    [self.mapView setScrollEnabled:YES];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+    
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];
+    NSLog(@"%@", [self deviceLocation]);
+    
+    MKCoordinateRegion region = { { 0.0, 0.0 }, { 0.0, 0.0 } };
+    region.center.latitude = self.locationManager.location.coordinate.latitude;
+    region.center.longitude = self.locationManager.location.coordinate.longitude;
+    region.span.longitudeDelta = 0.005f;
+    region.span.longitudeDelta = 0.005f;
+    [self.mapView setRegion:region animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,14 +88,34 @@
                         float lat = [[location objectForKey:@"lat"] floatValue];
                         float lng = [[location objectForKey:@"lng"] floatValue];
                         NSLog(@"lat: %f, lng: %f", lat, lng);
+                        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake((CLLocationDegrees)lat, (CLLocationDegrees)lng);
+                        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 800, 800);
+                        [self.mapView setRegion:region animated:YES];
+                        
+                        // Add an annotation
+                        [self.mapView removeAnnotations:self.mapView.annotations];
+                        MKPointAnnotation *destinationPoint = [[MKPointAnnotation alloc] init];
+                        destinationPoint.coordinate = coordinate;
+                        destinationPoint.title = address;
+                        [self.mapView addAnnotation:destinationPoint];
                     }
 
                 }];
             } else {
                 NSLog(@"No address Found");
+                
             }
         }];
     }
 }
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+}
+
+- (NSString *)deviceLocation {
+    return [NSString stringWithFormat:@"latitude: %f longitude: %f", self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude];
+}
 @end
