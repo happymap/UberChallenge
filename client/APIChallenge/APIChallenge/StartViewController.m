@@ -43,7 +43,7 @@
     
     // map
     self.mapView.delegate = self;
-//    self.mapView.showsUserLocation = NO;
+    self.mapView.showsUserLocation = YES;
     [self.mapView setMapType:MKMapTypeStandard];
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
@@ -56,7 +56,6 @@
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     [self.locationManager startUpdatingLocation];
-    NSLog(@"%@", [self deviceLocation]);
     
     MKCoordinateRegion region = { { 0.0, 0.0 }, { 0.0, 0.0 } };
     region.center.latitude = self.locationManager.location.coordinate.latitude;
@@ -72,10 +71,13 @@
 }
 
 - (IBAction)search:(id)sender {
-    NSString *address = [self.addressField text];
+    //dismiss keyboard
+    [self.addressField resignFirstResponder];
     
-    if ([address length] > 0) {
-        NSString *params = [[NSString stringWithFormat:@"address=%@&sensor=false&key=%@", address, GEOCODE_KEY] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    destination = [self.addressField text];
+    
+    if ([destination length] > 0) {
+        NSString *params = [[NSString stringWithFormat:@"address=%@&sensor=false&key=%@", destination, GEOCODE_KEY] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", GEOCODE_URL, params]]];
         [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             if([data length] > 0 && error == nil) {
@@ -96,7 +98,7 @@
                         [self.mapView removeAnnotations:self.mapView.annotations];
                         MKPointAnnotation *destinationPoint = [[MKPointAnnotation alloc] init];
                         destinationPoint.coordinate = coordinate;
-                        destinationPoint.title = address;
+                        destinationPoint.title = destination;
                         [self.mapView addAnnotation:destinationPoint];
                     }
 
@@ -111,11 +113,11 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
-    [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+    if (destination == nil) {
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+        [self.mapView setRegion:[self.mapView regionThatFits:region] animated:YES];
+    }
 }
 
-- (NSString *)deviceLocation {
-    return [NSString stringWithFormat:@"latitude: %f longitude: %f", self.locationManager.location.coordinate.latitude, self.locationManager.location.coordinate.longitude];
-}
+
 @end

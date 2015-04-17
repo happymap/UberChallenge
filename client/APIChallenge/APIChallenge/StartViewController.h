@@ -10,7 +10,9 @@
 #import <MapKit/MapKit.h>
 #import <MapKit/MKAnnotation.h>
 
-@interface StartViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate>
+@interface StartViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
+    NSString *destination;
+}
 
 @property (nonatomic, strong) IBOutlet UIButton *searchBtn;
 @property (nonatomic, strong) IBOutlet UITextField *addressField;
