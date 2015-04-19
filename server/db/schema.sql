@@ -45,7 +45,7 @@ DROP  TABLE IF EXISTS PriceInquiry;
 /* PriceInquiry table is used to store best estimated price info from Uber's estimate price API
    Note: Uber's response will be a set of products but we only store the one with best upper bound
    price here.*/
-CREATE TABLE PriceInquiry (
+CREATE TABLE Price_Inquiry (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	request_id BIGINT, # reference to Request's id
  	current_latitude DECIMAL(10,6),

@@ -45,7 +45,7 @@ class Request(BaseModel):
     class Meta:
         db_table = 'Request'
 
-class Priceinquiry(BaseModel):
+class PriceInquiry(BaseModel):
     best_price_upper = IntegerField(null=True)
     current_latitude = DecimalField(null=True)
     current_longtitude = DecimalField(null=True)
@@ -58,4 +58,4 @@ class Priceinquiry(BaseModel):
     uber_product_id = CharField(db_column='uber_product_id', null=True)
 
     class Meta:
-        db_table = 'PriceInquiry'
+        db_table = 'Price_Inquiry'
