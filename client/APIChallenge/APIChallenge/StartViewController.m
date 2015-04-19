@@ -48,6 +48,9 @@
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
     
+    //reset
+    [self.priceLabel setText:[NSString stringWithFormat:@"$%d", DEFAULT_PRICE]];
+    [self.priceSlider setValue:(float)(DEFAULT_PRICE - MIN_TARGET_PRICE)/(MAX_TARGET_PRICE - MIN_TARGET_PRICE)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -101,13 +104,18 @@
                         destinationPoint.title = destination;
                         [self.mapView addAnnotation:destinationPoint];
                     }
-
                 }];
             } else {
                 NSLog(@"No address Found");
                 
             }
         }];
+    }
+}
+
+- (IBAction)start:(id)sender {
+    if (destination != nil) {
+        [self performSegueWithIdentifier:@"startSegue" sender:self];
     }
 }
 
@@ -119,5 +127,9 @@
     }
 }
 
+- (IBAction)slidePrice:(id)sender {
+    targetPrice = (int)(MIN_TARGET_PRICE + (MAX_TARGET_PRICE - MIN_TARGET_PRICE)*self.priceSlider.value);
+    [self.priceLabel setText:[NSString stringWithFormat:@"$%d", targetPrice]];
+}
 
 @end

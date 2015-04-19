@@ -12,13 +12,18 @@
 
 @interface StartViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
     NSString *destination;
+    int targetPrice;
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *searchBtn;
 @property (nonatomic, strong) IBOutlet UITextField *addressField;
 @property (nonatomic, strong) IBOutlet MKMapView *mapView;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+@property (nonatomic, strong) IBOutlet UISlider *priceSlider;
+@property (nonatomic, strong) IBOutlet UILabel *priceLabel;
 
 - (IBAction)search:(id)sender;
+- (IBAction)slidePrice:(id)sender;
+- (IBAction)start:(id)sender;
 
 @end

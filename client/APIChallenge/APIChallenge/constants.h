@@ -18,3 +18,7 @@
 #define GEOCODE_URL @"https://maps.googleapis.com/maps/api/geocode/json"
 
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
+#define MIN_TARGET_PRICE 1
+#define MAX_TARGET_PRICE 100
+#define DEFAULT_PRICE 20

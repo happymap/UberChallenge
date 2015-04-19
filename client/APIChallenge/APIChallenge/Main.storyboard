@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q30-g4-sUr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q30-g4-sUr">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -69,13 +69,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your target price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tC2-xz-9K6">
-                                <rect key="frame" x="14" y="465" width="171" height="21"/>
+                                <rect key="frame" x="16" y="402" width="171" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="kXH-1A-GLr">
-                                <rect key="frame" x="0.0" y="20" width="320" height="400"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="361"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c62-Tu-2SW">
                                 <rect key="frame" x="105" y="494" width="110" height="54"/>
@@ -84,7 +84,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="378-su-ZkP" kind="push" id="lUq-Vl-acf"/>
+                                    <action selector="start:" destination="W1n-ij-Eze" eventType="touchUpInside" id="6IV-mu-wzz"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your destination" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2Tg-BB-pgi">
@@ -103,6 +103,18 @@
                                     <action selector="search:" destination="W1n-ij-Eze" eventType="touchUpInside" id="m5w-87-db5"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Bcv-Mz-fLk">
+                                <rect key="frame" x="12" y="449" width="294" height="31"/>
+                                <connections>
+                                    <action selector="slidePrice:" destination="W1n-ij-Eze" eventType="touchDragInside" id="sW1-px-j3l"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZg-n0-i9i">
+                                <rect key="frame" x="268" y="402" width="41" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -110,7 +122,10 @@
                     <connections>
                         <outlet property="addressField" destination="2Tg-BB-pgi" id="ycu-AA-x9X"/>
                         <outlet property="mapView" destination="kXH-1A-GLr" id="VQ9-LF-oso"/>
+                        <outlet property="priceLabel" destination="pZg-n0-i9i" id="Pno-HS-j2C"/>
+                        <outlet property="priceSlider" destination="Bcv-Mz-fLk" id="2RW-vj-nlC"/>
                         <outlet property="searchBtn" destination="sfh-KK-bWM" id="4Yp-1C-73A"/>
+                        <segue destination="378-su-ZkP" kind="push" identifier="startSegue" id="fwc-hw-tO1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScN-V1-AtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
