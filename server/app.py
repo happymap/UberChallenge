@@ -1,15 +1,25 @@
 from __future__ import absolute_import
 
+# python packages
 import json
 import os
 from urlparse import urlparse
+import datetime
 
-from models import Priceinquiry, Request, User
+# data models and peewee packages
+from models import PriceInquiry, Request, User
+from peewee import *
 
-from flask import Flask, render_template, request, redirect, session
+# flask packages
+from flask import Flask, render_template, request, redirect, session, g
 from flask_sslify import SSLify
+
+# others
 from rauth import OAuth2Service
 import requests
+
+
+database = MySQLDatabase('uberhack', **{'password': 'uberhack', 'user': 'uberhack'})
 
 app = Flask(__name__, static_folder='static', static_url_path='')
 app.requests_session = requests.Session()
@@ -19,7 +29,17 @@ sslify = SSLify(app)
 
 with open('config.json') as f:
     config = json.load(f)
+# Request handlers -- these two hooks are provided by flask and we will use them
+# to create and tear down a database connection on each request.
+@app.before_request
+def before_request():
+    g.db = database
+    g.db.connect()
 
+@app.after_request
+def after_request(response):
+    g.db.close()
+    return response
 
 def generate_oauth_service():
     """Prepare the OAuth2Service that is used to make requests later."""
@@ -214,10 +234,22 @@ def me():
 
     if response.status_code != 200:
         return 'There was an error', response.status_code
+
+    data = response.json()
+
+    try:
+        with database.atomic():
+            currentUser = User.get(uber_uuid=data['uuid'])
+    except peewee.DoesNotExist:
+        currentUser = User.create(email=data['email'], first_name=data['first_name'],
+                                last_name=data['last_name'], uber_picture=data['picture'],
+                                uber_promo_code=data['promo_code'], uber_uuid=data['uuid'],
+                                register_time=datetime.datetime.now())
+
     return render_template(
         'results.html',
         endpoint='me',
-        data=response.text,
+        data=currentUser,
     )
 
 
