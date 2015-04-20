@@ -7,6 +7,7 @@
 //
 
 #import "StartViewController.h"
+#import "DashboardViewController.h"
 #import "constants.h"
 
 @interface StartViewController ()
@@ -49,6 +50,7 @@
     [self.mapView setScrollEnabled:YES];
     
     //reset
+    targetPrice = DEFAULT_PRICE;
     [self.priceLabel setText:[NSString stringWithFormat:@"$%d", DEFAULT_PRICE]];
     [self.priceSlider setValue:(float)(DEFAULT_PRICE - MIN_TARGET_PRICE)/(MAX_TARGET_PRICE - MIN_TARGET_PRICE)];
 }
@@ -130,6 +132,14 @@
 - (IBAction)slidePrice:(id)sender {
     targetPrice = (int)(MIN_TARGET_PRICE + (MAX_TARGET_PRICE - MIN_TARGET_PRICE)*self.priceSlider.value);
     [self.priceLabel setText:[NSString stringWithFormat:@"$%d", targetPrice]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"startSegue"]) {
+        DashboardViewController *vc = [segue destinationViewController];
+        [vc setTargetPrice:targetPrice];
+    }
 }
 
 @end

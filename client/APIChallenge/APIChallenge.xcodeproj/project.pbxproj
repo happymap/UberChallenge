@@ -20,6 +20,8 @@
 		8188923C1AD0EA760078FDDB /* UberLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8188923A1AD0EA760078FDDB /* UberLoginViewController.m */; };
 		8188923D1AD0EA760078FDDB /* UberLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8188923B1AD0EA760078FDDB /* UberLoginViewController.xib */; };
 		81FAD3211ADE34C40061FA1C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FAD3201ADE34C40061FA1C /* MapKit.framework */; };
+		DD18F7031AE46AF4002D4D19 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD18F7021AE46AF4002D4D19 /* DashboardViewController.m */; };
+		DD18F7071AE47BB3002D4D19 /* ProductObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DD18F7061AE47BB3002D4D19 /* ProductObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,10 @@
 		8188923B1AD0EA760078FDDB /* UberLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberLoginViewController.xib; sourceTree = "<group>"; };
 		8188923F1AD0EEC40078FDDB /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		81FAD3201ADE34C40061FA1C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		DD18F7011AE46AF4002D4D19 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
+		DD18F7021AE46AF4002D4D19 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
+		DD18F7051AE47BB3002D4D19 /* ProductObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductObject.h; sourceTree = "<group>"; };
+		DD18F7061AE47BB3002D4D19 /* ProductObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductObject.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +106,7 @@
 		8188920E1AD0C3F10078FDDB /* APIChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				DD18F7041AE47B87002D4D19 /* model */,
 				8188923E1AD0EEB60078FDDB /* util */,
 				818892381AD0EA150078FDDB /* modal */,
 				818892131AD0C3F10078FDDB /* AppDelegate.h */,
@@ -108,6 +115,8 @@
 				818892361AD0D9C00078FDDB /* LoginViewController.m */,
 				816854E61AD7986F007A0FAF /* StartViewController.h */,
 				816854E71AD7986F007A0FAF /* StartViewController.m */,
+				DD18F7011AE46AF4002D4D19 /* DashboardViewController.h */,
+				DD18F7021AE46AF4002D4D19 /* DashboardViewController.m */,
 				810347FB1AD0FCEF00D997BB /* Main.storyboard */,
 				8188921C1AD0C3F10078FDDB /* Images.xcassets */,
 				8188921E1AD0C3F10078FDDB /* LaunchScreen.xib */,
@@ -162,6 +171,15 @@
 				816854E41AD4F960007A0FAF /* util.m */,
 			);
 			name = util;
+			sourceTree = "<group>";
+		};
+		DD18F7041AE47B87002D4D19 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				DD18F7051AE47BB3002D4D19 /* ProductObject.h */,
+				DD18F7061AE47BB3002D4D19 /* ProductObject.m */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,8 +289,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				818892371AD0D9C00078FDDB /* LoginViewController.m in Sources */,
+				DD18F7071AE47BB3002D4D19 /* ProductObject.m in Sources */,
 				816854E51AD4F960007A0FAF /* util.m in Sources */,
 				818892151AD0C3F10078FDDB /* AppDelegate.m in Sources */,
+				DD18F7031AE46AF4002D4D19 /* DashboardViewController.m in Sources */,
 				816854E81AD7986F007A0FAF /* StartViewController.m in Sources */,
 				816854E21AD4F770007A0FAF /* KeychainWrapper.m in Sources */,
 				8188923C1AD0EA760078FDDB /* UberLoginViewController.m in Sources */,
