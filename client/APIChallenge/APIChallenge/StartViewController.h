@@ -13,6 +13,8 @@
 @interface StartViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
     NSString *destination;
     int targetPrice;
+    CLLocation *currentLocation;
+    CLLocation *targetLocation;
 }
 
 @property (nonatomic, strong) IBOutlet UIButton *searchBtn;

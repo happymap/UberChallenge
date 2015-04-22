@@ -19,6 +19,8 @@
 		818892371AD0D9C00078FDDB /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 818892361AD0D9C00078FDDB /* LoginViewController.m */; };
 		8188923C1AD0EA760078FDDB /* UberLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8188923A1AD0EA760078FDDB /* UberLoginViewController.m */; };
 		8188923D1AD0EA760078FDDB /* UberLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8188923B1AD0EA760078FDDB /* UberLoginViewController.xib */; };
+		81F98ED41AE4DF7100612647 /* productCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F98ED21AE4DF7100612647 /* productCell.m */; };
+		81F98ED51AE4DF7100612647 /* productCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 81F98ED31AE4DF7100612647 /* productCell.xib */; };
 		81FAD3211ADE34C40061FA1C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81FAD3201ADE34C40061FA1C /* MapKit.framework */; };
 		DD18F7031AE46AF4002D4D19 /* DashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DD18F7021AE46AF4002D4D19 /* DashboardViewController.m */; };
 		DD18F7071AE47BB3002D4D19 /* ProductObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DD18F7061AE47BB3002D4D19 /* ProductObject.m */; };
@@ -58,6 +60,9 @@
 		8188923A1AD0EA760078FDDB /* UberLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UberLoginViewController.m; sourceTree = "<group>"; };
 		8188923B1AD0EA760078FDDB /* UberLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberLoginViewController.xib; sourceTree = "<group>"; };
 		8188923F1AD0EEC40078FDDB /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
+		81F98ED11AE4DF7100612647 /* productCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = productCell.h; sourceTree = "<group>"; };
+		81F98ED21AE4DF7100612647 /* productCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = productCell.m; sourceTree = "<group>"; };
+		81F98ED31AE4DF7100612647 /* productCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = productCell.xib; sourceTree = "<group>"; };
 		81FAD3201ADE34C40061FA1C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		DD18F7011AE46AF4002D4D19 /* DashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DashboardViewController.h; sourceTree = "<group>"; };
 		DD18F7021AE46AF4002D4D19 /* DashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DashboardViewController.m; sourceTree = "<group>"; };
@@ -106,6 +111,7 @@
 		8188920E1AD0C3F10078FDDB /* APIChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				81F98ED01AE4DCC200612647 /* cell */,
 				DD18F7041AE47B87002D4D19 /* model */,
 				8188923E1AD0EEB60078FDDB /* util */,
 				818892381AD0EA150078FDDB /* modal */,
@@ -171,6 +177,16 @@
 				816854E41AD4F960007A0FAF /* util.m */,
 			);
 			name = util;
+			sourceTree = "<group>";
+		};
+		81F98ED01AE4DCC200612647 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				81F98ED11AE4DF7100612647 /* productCell.h */,
+				81F98ED21AE4DF7100612647 /* productCell.m */,
+				81F98ED31AE4DF7100612647 /* productCell.xib */,
+			);
+			name = cell;
 			sourceTree = "<group>";
 		};
 		DD18F7041AE47B87002D4D19 /* model */ = {
@@ -267,6 +283,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81F98ED51AE4DF7100612647 /* productCell.xib in Resources */,
 				818892201AD0C3F10078FDDB /* LaunchScreen.xib in Resources */,
 				8188923D1AD0EA760078FDDB /* UberLoginViewController.xib in Resources */,
 				8188921D1AD0C3F10078FDDB /* Images.xcassets in Resources */,
@@ -289,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				818892371AD0D9C00078FDDB /* LoginViewController.m in Sources */,
+				81F98ED41AE4DF7100612647 /* productCell.m in Sources */,
 				DD18F7071AE47BB3002D4D19 /* ProductObject.m in Sources */,
 				816854E51AD4F960007A0FAF /* util.m in Sources */,
 				818892151AD0C3F10078FDDB /* AppDelegate.m in Sources */,

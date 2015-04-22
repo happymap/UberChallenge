@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q30-g4-sUr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Q30-g4-sUr">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -125,7 +125,7 @@
                         <outlet property="priceLabel" destination="pZg-n0-i9i" id="Pno-HS-j2C"/>
                         <outlet property="priceSlider" destination="Bcv-Mz-fLk" id="2RW-vj-nlC"/>
                         <outlet property="searchBtn" destination="sfh-KK-bWM" id="4Yp-1C-73A"/>
-                        <segue destination="378-su-ZkP" kind="push" identifier="startSegue" id="fwc-hw-tO1"/>
+                        <segue destination="cnL-0r-Obe" kind="push" identifier="startSegue" id="fmC-p7-OHj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScN-V1-AtD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -133,50 +133,58 @@
             <point key="canvasLocation" x="732" y="-454"/>
         </scene>
         <!--Dashboard View Controller-->
-        <scene sceneID="VXH-0e-C6o">
+        <scene sceneID="BAA-7d-fpC">
             <objects>
-                <viewController id="378-su-ZkP" customClass="DashboardViewController" sceneMemberID="viewController">
+                <viewController id="cnL-0r-Obe" customClass="DashboardViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ze9-Qb-ACN"/>
-                        <viewControllerLayoutGuide type="bottom" id="ONy-M7-Rhi"/>
+                        <viewControllerLayoutGuide type="top" id="xnw-4s-rHO"/>
+                        <viewControllerLayoutGuide type="bottom" id="rIG-Dg-vwl"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="DAx-sw-vjW">
+                    <view key="view" contentMode="scaleToFill" id="Ii1-ie-W0w">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target price" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EbM-vW-Doi">
-                                <rect key="frame" x="28" y="27" width="90" height="21"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="ID0-8X-Uvi">
+                                <rect key="frame" x="0.0" y="74" width="320" height="494"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="cnL-0r-Obe" id="rDb-7f-gfr"/>
+                                    <outlet property="delegate" destination="cnL-0r-Obe" id="r0f-X3-cu3"/>
+                                </connections>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Target Price:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4hy-jB-Otw">
+                                <rect key="frame" x="28" y="40" width="96" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ne7-L3-eU6">
-                                <rect key="frame" x="229" y="23" width="41" height="30"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j5M-VB-xay">
+                                <rect key="frame" x="132" y="40" width="20" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KgL-EB-hNG">
+                                <rect key="frame" x="229" y="36" width="41" height="30"/>
                                 <state key="normal" title="STOP">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="stop:" destination="cnL-0r-Obe" eventType="touchUpInside" id="Q11-ad-bhq"/>
+                                </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="yp8-j1-jvq">
-                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l3Q-RH-ua9">
-                                <rect key="frame" x="133" y="27" width="37" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="UIl-iw-eAd"/>
+                    <navigationItem key="navigationItem" id="neq-x2-NJn"/>
                     <connections>
-                        <outlet property="priceLabel" destination="l3Q-RH-ua9" id="Zil-We-yEt"/>
+                        <outlet property="priceLabel" destination="j5M-VB-xay" id="JKD-k2-utP"/>
+                        <outlet property="stopButton" destination="KgL-EB-hNG" id="0u0-8W-U95"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="G4w-nc-ewr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lQ0-qG-Q4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1191" y="-454"/>
+            <point key="canvasLocation" x="1185" y="-456"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
