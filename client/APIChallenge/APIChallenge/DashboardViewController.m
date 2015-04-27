@@ -14,12 +14,17 @@
 
 @end
 
-@implementation DashboardViewController
+@implementation DashboardViewController {
+    CLLocation *currentLocation;
+}
 
-@synthesize targetLocation, currentLocation;
+@synthesize targetLat, targetLng;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //set target price
+    [self.priceLabel setText:[NSString stringWithFormat:@"$%d", self.targetPrice]];
     
     //get user location
     self.locationManager = [[CLLocationManager alloc] init];
@@ -74,7 +79,8 @@
 
 - (void)locationManager:(CLLocationManager *)manager
     didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    self.currentLocation = newLocation;
+    currentLocation = newLocation;
+    NSLog(@"location updated: %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
 }
 
 @end

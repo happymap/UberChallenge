@@ -15,7 +15,9 @@
 @end
 
 @implementation StartViewController {
-    NSOperationQueue *queue;    
+    NSOperationQueue *queue;
+    float targetLat;
+    float targetLng;
 }
 
 - (void)viewDidLoad {
@@ -92,10 +94,10 @@
                     NSArray *results = [res objectForKey:@"results"];
                     if ([results count] > 0) {
                         NSDictionary *location = [[[results objectAtIndex:0] objectForKey:@"geometry"] objectForKey:@"location"];
-                        float lat = [[location objectForKey:@"lat"] floatValue];
-                        float lng = [[location objectForKey:@"lng"] floatValue];
-                        NSLog(@"lat: %f, lng: %f", lat, lng);
-                        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake((CLLocationDegrees)lat, (CLLocationDegrees)lng);
+                        targetLat = [[location objectForKey:@"lat"] floatValue];
+                        targetLng = [[location objectForKey:@"lng"] floatValue];
+                        NSLog(@"lat: %f, lng: %f", targetLat, targetLng);
+                        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake((CLLocationDegrees)targetLat, (CLLocationDegrees)targetLng);
                         MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(coordinate, 800, 800);
                         [self.mapView setRegion:region animated:YES];
                         
@@ -139,6 +141,8 @@
     if ([[segue identifier] isEqualToString:@"startSegue"]) {
         DashboardViewController *vc = [segue destinationViewController];
         [vc setTargetPrice:targetPrice];
+        [vc setTargetLat:targetLat];
+        [vc setTargetLng:targetLng];
     }
 }
 

@@ -12,8 +12,8 @@
 @interface DashboardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
 @property int targetPrice;
-@property CLLocation *targetLocation;
-@property CLLocation *currentLocation;
+@property float targetLat;
+@property float targetLng;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
