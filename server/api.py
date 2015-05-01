@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restful import reqparse, abort, Api, Resource
+from resources.ApiUser import ApiUser
 
 app = Flask(__name__)
 api = Api(app)
@@ -19,6 +20,34 @@ parser = reqparse.RequestParser()
 parser.add_argument('task', type=str)
 
 
+#--------------------------------------------------
+# Basic model APIs
+
+
+class ApiRequest(Resource):
+	def get(self, request_id):
+		pass
+
+	def put(self, request_id):
+		pass
+
+	def post(self):
+		pass
+
+
+class ApiPriceInquiry(Resource):
+	def get(self, inquiry_id):
+		pass
+
+	def put(self, inquiry_id):
+		pass
+
+	def post(self):
+		pass
+
+
+
+#------------------------------------------------------------
 # Todo
 # shows a single todo item and lets you delete a todo item
 class Todo(Resource):
@@ -51,12 +80,14 @@ class TodoList(Resource):
         TODOS[todo_id] = {'task': args['task']}
         return TODOS[todo_id], 201
 
+#------------------------------------------------------------
+
 ##
 ## Actually setup the Api resource routing here
 ##
 api.add_resource(TodoList, '/todos')
 api.add_resource(Todo, '/todos/<todo_id>')
-
+api.add_resource(ApiUser, '/ApiUser', '/ApiUser/<str:id>')
 
 if __name__ == '__main__':
     app.run(debug=True)

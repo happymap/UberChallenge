@@ -241,10 +241,13 @@ def me():
         with database.atomic():
             currentUser = User.get(uber_uuid=data['uuid'])
     except peewee.DoesNotExist:
-        currentUser = User.create(email=data['email'], first_name=data['first_name'],
-                                last_name=data['last_name'], uber_picture=data['picture'],
-                                uber_promo_code=data['promo_code'], uber_uuid=data['uuid'],
-                                register_time=datetime.datetime.now())
+        currentUser = User.create(email=data['email'],
+                                  first_name=data['first_name'],
+                                  last_name=data['last_name'],
+                                  uber_picture=data['picture'],
+                                  uber_promo_code=data['promo_code'],
+                                  uber_uuid=data['uuid'],
+                                  register_time=datetime.datetime.now())
 
     return render_template(
         'results.html',
