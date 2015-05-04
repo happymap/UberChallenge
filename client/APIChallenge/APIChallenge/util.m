@@ -26,7 +26,7 @@
 
 +(BOOL)ifLoggedIn
 {
-    NSLog([NSString stringWithFormat:@"%@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]]);
+    NSLog([NSString stringWithFormat:@"token:%@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]]);
     return [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"] &&
     [KeychainWrapper keychainStringFromMatchingIdentifier:@"expiresIn"] &&
     [KeychainWrapper keychainStringFromMatchingIdentifier:@"refreshToken"];

@@ -9,12 +9,14 @@
 #import "DashboardViewController.h"
 #import "productCell.h"
 #import "constants.h"
+#import "KeychainWrapper.h"
 
 @interface DashboardViewController ()
 
 @end
 
 @implementation DashboardViewController {
+    NSOperationQueue *queue;
     CLLocation *currentLocation;
 }
 
@@ -22,6 +24,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // request queue
+    queue = [[NSOperationQueue alloc] init];
     
     //set target price
     [self.priceLabel setText:[NSString stringWithFormat:@"$%d", self.targetPrice]];
@@ -42,7 +47,9 @@
             }
         }
     }
-    [self.locationManager startUpdatingLocation];
+    [self.locationManager startMonitoringSignificantLocationChanges];
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = 30; //meters
 
 }
 
@@ -81,6 +88,20 @@
     didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     currentLocation = newLocation;
     NSLog(@"location updated: %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+    
+    NSString *params = [[NSString stringWithFormat:@"start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+    NSLog(params);
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@", UBER_API_BASE_URL, PRICE_ESTIMATE_ENDPOINT, params]]];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if([data length] > 0 && error == nil) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                NSLog([NSString stringWithFormat:@"%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]]);
+            }];
+        } else {
+            NSLog([error localizedDescription]);
+        }
+    }];
 }
 
 @end

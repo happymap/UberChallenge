@@ -19,6 +19,9 @@
 
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 
+#define UBER_API_BASE_URL @"https://api.uber.com"
+#define PRICE_ESTIMATE_ENDPOINT @"/v1/estimates/price"
+
 #define MIN_TARGET_PRICE 1
 #define MAX_TARGET_PRICE 100
 #define DEFAULT_PRICE 20
