@@ -10,4 +10,8 @@
 
 @interface productCell : UITableViewCell
 
+@property (nonatomic, strong) IBOutlet UILabel *priceLbl;
+@property (nonatomic, strong) IBOutlet UILabel *nameLbl;
+@property (nonatomic, strong) IBOutlet UILabel *distanceLbl;
+
 @end

@@ -180,6 +180,7 @@
                     <connections>
                         <outlet property="priceLabel" destination="j5M-VB-xay" id="JKD-k2-utP"/>
                         <outlet property="stopButton" destination="KgL-EB-hNG" id="0u0-8W-U95"/>
+                        <outlet property="table" destination="ID0-8X-Uvi" id="3kE-Bt-Bak"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lQ0-qG-Q4Y" userLabel="First Responder" sceneMemberID="firstResponder"/>

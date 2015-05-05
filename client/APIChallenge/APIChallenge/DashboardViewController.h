@@ -19,6 +19,7 @@
 
 @property (nonatomic, strong) IBOutlet UILabel *priceLabel;
 @property (nonatomic, strong) IBOutlet UIButton *stopButton;
+@property (nonatomic, strong) IBOutlet UITableView *table;
 
 - (IBAction)stop:(id)sender;
 
