@@ -71,18 +71,41 @@
     static NSString *identifier = @"productCell";
     
     productCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    UITapGestureRecognizer *singleFingerTap =
+    [[UITapGestureRecognizer alloc] initWithTarget:self
+                                            action:@selector(handleSingleTap:)];
     
     if (cell == nil) {
         NSArray *nib = [[NSBundle mainBundle]loadNibNamed:identifier owner:nil options:nil];
         cell = (productCell *)[nib objectAtIndex:0];
+        [cell addGestureRecognizer:singleFingerTap];
     }
     
     [cell.priceLbl setText:[[results objectAtIndex:indexPath.row] objectForKey:@"estimate"]];
     [cell.nameLbl setText:[[results objectAtIndex:indexPath.row] objectForKey:@"display_name"]];
     [cell.distanceLbl setText:[NSString stringWithFormat:@"%0.2fm", [[[results objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]]];
+    [cell setTag:indexPath.row];
     
     return cell;
 }
+
+- (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
+    UIView *view = recognizer.view; //cast pointer to the derived class if needed
+    NSLog(@"%d", view.tag);
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
+        // Do something awesome - the app is installed! Launch App.
+        
+        NSString *uberUrl = [NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=%0.2fm&pickup[longitude]=%0.2fm&dropoff[latitude]=%0.2fm&dropoff[longitude]=%0.2fm&product_id=%@", CLIENT_ID, currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, [[results objectAtIndex:view.tag] objectForKey:@"product_id"]];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:uberUrl]];
+        
+    }
+    else {
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UBER_APPSTORE_URL]];
+        // No Uber app! Open Mobile Website.
+    }
+}
+
 
 - (CGFloat) tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

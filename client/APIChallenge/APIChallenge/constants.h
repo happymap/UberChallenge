@@ -23,6 +23,8 @@
 #define PRICE_ESTIMATE_ENDPOINT @"/v1/estimates/price"
 #define USER_INFO_URL @"/v1/me"
 
+#define UBER_APPSTORE_URL @"https://itunes.apple.com/us/app/uber/id368677368?mt=8"
+
 #define MIN_TARGET_PRICE 1
 #define MAX_TARGET_PRICE 100
 #define DEFAULT_PRICE 20
