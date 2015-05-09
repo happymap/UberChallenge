@@ -29,7 +29,8 @@
     NSLog([NSString stringWithFormat:@"token:%@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]]);
     return [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"] &&
     [KeychainWrapper keychainStringFromMatchingIdentifier:@"expiresIn"] &&
-    [KeychainWrapper keychainStringFromMatchingIdentifier:@"refreshToken"];
+    [KeychainWrapper keychainStringFromMatchingIdentifier:@"refreshToken"] &&
+    [[KeychainWrapper keychainStringFromMatchingIdentifier:@"expiresIn"] longLongValue] > [[NSDate date] timeIntervalSince1970];
 }
 
 @end

@@ -76,7 +76,7 @@
                 NSLog(@"%ld", expiresIn);
                 
                 [util updateKey:@"token" withValue:token];
-                [util updateKey:@"expiresIn" withValue:[[NSNumber numberWithLong:expiresIn] stringValue]];
+                [util updateKey:@"expiresIn" withValue:[[NSNumber numberWithLong:expiresIn + [[NSDate date] timeIntervalSince1970]] stringValue]];
                 [util updateKey:@"refreshToken" withValue:refreshToken];
                 
                 [loginModal dismissViewControllerAnimated:YES completion:nil];
