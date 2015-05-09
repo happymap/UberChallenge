@@ -90,7 +90,7 @@
 }
 
 - (IBAction)stop:(id)sender {
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
