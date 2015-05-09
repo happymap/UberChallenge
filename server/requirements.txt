@@ -9,4 +9,7 @@ requests==2.3.0
 wsgiref==0.1.2
 
 gunicorn==18.0
-Flask-SSLify==0.1.4
+Flask-SSLify==0.1.5
+peewee==2.6.0
+mysql-connector-python==2.0.3
+Flask-RESTful==0.3.2
