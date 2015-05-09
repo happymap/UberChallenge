@@ -1,93 +1,39 @@
-from flask import Flask
-from flask_restful import reqparse, abort, Api, Resource
+from flask import Flask, g
+from flask_restful import Api
 from resources.ApiUser import ApiUser
+from resources.ApiRequest import StartRequest, EndRequest
+from resources.ApiPriceInquiry import ApiPriceInquiry
+from peewee import *
 
 app = Flask(__name__)
 api = Api(app)
 
-TODOS = {
-    'todo1': {'task': 'build an API'},
-    'todo2': {'task': '?????'},
-    'todo3': {'task': 'profit!'},
-}
+database = MySQLDatabase('uberhack', **{'password': 'uberhack', 'user': 'uberhack'})
 
+@app.before_request
+def before_request():
+    g.db = database
+    g.db.connect()
 
-def abort_if_todo_doesnt_exist(todo_id):
-    if todo_id not in TODOS:
-        abort(404, message="Todo {} doesn't exist".format(todo_id))
+# @app.teardown_request
+# def teardown_request(exception):
+#     db = getattr(g, 'db', None)
+#     if db is not None:
+#         db.close()
 
-parser = reqparse.RequestParser()
-parser.add_argument('task', type=str)
-
-
-#--------------------------------------------------
-# Basic model APIs
-
-
-class ApiRequest(Resource):
-	def get(self, request_id):
-		pass
-
-	def put(self, request_id):
-		pass
-
-	def post(self):
-		pass
-
-
-class ApiPriceInquiry(Resource):
-	def get(self, inquiry_id):
-		pass
-
-	def put(self, inquiry_id):
-		pass
-
-	def post(self):
-		pass
-
-
-
-#------------------------------------------------------------
-# Todo
-# shows a single todo item and lets you delete a todo item
-class Todo(Resource):
-    def get(self, todo_id):
-        abort_if_todo_doesnt_exist(todo_id)
-        return TODOS[todo_id]
-
-    def delete(self, todo_id):
-        abort_if_todo_doesnt_exist(todo_id)
-        del TODOS[todo_id]
-        return '', 204
-
-    def put(self, todo_id):
-        args = parser.parse_args()
-        task = {'task': args['task']}
-        TODOS[todo_id] = task
-        return task, 201
-
-
-# TodoList
-# shows a list of all todos, and lets you POST to add new tasks
-class TodoList(Resource):
-    def get(self):
-        return TODOS
-
-    def post(self):
-        args = parser.parse_args()
-        todo_id = int(max(TODOS.keys()).lstrip('todo')) + 1
-        todo_id = 'todo%i' % todo_id
-        TODOS[todo_id] = {'task': args['task']}
-        return TODOS[todo_id], 201
+@app.after_request
+def after_request(response):
+    g.db.close()
+    return response
 
 #------------------------------------------------------------
 
 ##
 ## Actually setup the Api resource routing here
 ##
-api.add_resource(TodoList, '/todos')
-api.add_resource(Todo, '/todos/<todo_id>')
-api.add_resource(ApiUser, '/ApiUser', '/ApiUser/<str:id>')
+api.add_resource(ApiUser, '/user/login', '/user/<string:id>')
+api.add_resource(StartRequest, '/request/start', '/request/<string:id>')
+api.add_resource(EndRequest, '/request/end')
 
 if __name__ == '__main__':
     app.run(debug=True)

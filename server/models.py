@@ -15,7 +15,7 @@ class BaseModel(Model):
 class User(BaseModel):
     email = CharField(null=True)
     first_name = CharField(null=True)
-    id = BigIntegerField(primary_key=True)
+    id = PrimaryKeyField()
     last_name = CharField(null=True)
     register_time = DateTimeField(null=True)
     token = CharField(null=True)
@@ -34,13 +34,14 @@ class Request(BaseModel):
     depart_price = DecimalField(null=True)
     dest_latitude = DecimalField(null=True)
     dest_longtitude = DecimalField(null=True)
-    id = BigIntegerField(primary_key=True)
+    id = PrimaryKeyField()
     is_accept = IntegerField(null=True)
     is_active = IntegerField(null=True)
     is_find = IntegerField(null=True)
     request_time = DateTimeField(null=True)
     uber_request_id = CharField(db_column='uber_request_id', null=True)
-    user_id = ForeignKeyField(User, related_name='requests')
+    #user_id = ForeignKeyField(User, related_name='requests')
+    user_id = IntegerField(null=True)
 
     class Meta:
         db_table = 'Request'
