@@ -51,10 +51,6 @@
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
     
-    //reset
-    targetPrice = DEFAULT_PRICE;
-    [self.priceLabel setText:[NSString stringWithFormat:@"$%d", DEFAULT_PRICE]];
-    [self.priceSlider setValue:(float)(DEFAULT_PRICE - MIN_TARGET_PRICE)/(MAX_TARGET_PRICE - MIN_TARGET_PRICE)];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -70,6 +66,12 @@
     region.span.longitudeDelta = 0.005f;
     region.span.longitudeDelta = 0.005f;
     [self.mapView setRegion:region animated:YES];
+    
+    //reset
+    destination = nil;
+    targetPrice = DEFAULT_PRICE;
+    [self.priceLabel setText:[NSString stringWithFormat:@"$%d", DEFAULT_PRICE]];
+    [self.priceSlider setValue:(float)(DEFAULT_PRICE - MIN_TARGET_PRICE)/(MAX_TARGET_PRICE - MIN_TARGET_PRICE)];
 }
 
 - (void)didReceiveMemoryWarning {

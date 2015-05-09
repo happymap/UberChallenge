@@ -170,7 +170,7 @@
                   moduleName = "APIChallenge"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yifanying/git/UberChallenge/client/APIChallenge/APIChallenge/DashboardViewController.m"
-                  timestampString = "452901740.939978"
+                  timestampString = "452902286.800422"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "106"
@@ -185,7 +185,7 @@
                   moduleName = "APIChallenge"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yifanying/git/UberChallenge/client/APIChallenge/APIChallenge/DashboardViewController.m"
-                  timestampString = "452901740.940318"
+                  timestampString = "452902286.800671"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "106"
@@ -218,7 +218,7 @@
                   moduleName = "APIChallenge"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yifanying/git/UberChallenge/client/APIChallenge/APIChallenge/DashboardViewController.m"
-                  timestampString = "452901740.941688"
+                  timestampString = "452902286.801951"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "108"
@@ -233,7 +233,7 @@
                   moduleName = "APIChallenge"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/yifanying/git/UberChallenge/client/APIChallenge/APIChallenge/DashboardViewController.m"
-                  timestampString = "452901740.941935"
+                  timestampString = "452902286.802198"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "108"
@@ -448,6 +448,38 @@
             startingLineNumber = "115"
             endingLineNumber = "115"
             landmarkName = "-authDismiss:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "APIChallenge/StartViewController.m"
+            timestampString = "452902286.348459"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "-mapView:didUpdateUserLocation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "APIChallenge/StartViewController.m"
+            timestampString = "452902292.146506"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "-viewDidAppear:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
