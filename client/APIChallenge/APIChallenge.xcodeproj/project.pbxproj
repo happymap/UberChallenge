@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		810347FC1AD0FCEF00D997BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 810347FB1AD0FCEF00D997BB /* Main.storyboard */; };
+		8122FD521AFEB8C9009EB981 /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8122FD511AFEB8C9009EB981 /* UserObject.m */; };
 		816854E21AD4F770007A0FAF /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E11AD4F770007A0FAF /* KeychainWrapper.m */; };
 		816854E51AD4F960007A0FAF /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E41AD4F960007A0FAF /* util.m */; };
 		816854E81AD7986F007A0FAF /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E71AD7986F007A0FAF /* StartViewController.m */; };
@@ -38,6 +39,8 @@
 
 /* Begin PBXFileReference section */
 		810347FB1AD0FCEF00D997BB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		8122FD501AFEB8C9009EB981 /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
+		8122FD511AFEB8C9009EB981 /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		816854E01AD4F770007A0FAF /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
 		816854E11AD4F770007A0FAF /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		816854E31AD4F8C8007A0FAF /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
@@ -194,6 +197,8 @@
 			children = (
 				DD18F7051AE47BB3002D4D19 /* ProductObject.h */,
 				DD18F7061AE47BB3002D4D19 /* ProductObject.m */,
+				8122FD501AFEB8C9009EB981 /* UserObject.h */,
+				8122FD511AFEB8C9009EB981 /* UserObject.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -313,6 +318,7 @@
 				DD18F7031AE46AF4002D4D19 /* DashboardViewController.m in Sources */,
 				816854E81AD7986F007A0FAF /* StartViewController.m in Sources */,
 				816854E21AD4F770007A0FAF /* KeychainWrapper.m in Sources */,
+				8122FD521AFEB8C9009EB981 /* UserObject.m in Sources */,
 				8188923C1AD0EA760078FDDB /* UberLoginViewController.m in Sources */,
 				818892121AD0C3F10078FDDB /* main.m in Sources */,
 			);

@@ -11,6 +11,7 @@
 #import "constants.h"
 #import "util.h"
 #import "KeychainWrapper.h"
+#import "UserObject.h"
 
 @interface LoginViewController ()
 
@@ -75,17 +76,55 @@
                 
                 NSLog(@"%ld", expiresIn);
                 
-                [util updateKey:@"token" withValue:token];
-                [util updateKey:@"expiresIn" withValue:[[NSNumber numberWithLong:expiresIn + [[NSDate date] timeIntervalSince1970]] stringValue]];
-                [util updateKey:@"refreshToken" withValue:refreshToken];
-                
-                [loginModal dismissViewControllerAnimated:YES completion:nil];
-                [self performSegueWithIdentifier:@"loginSegue" sender:self];
+                NSString *infoUrl = [NSString stringWithFormat:@"%@%@", UBER_API_BASE_URL, USER_INFO_URL];
+                NSMutableURLRequest *infoRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString: infoUrl]];
+                [infoRequest setValue:[NSString stringWithFormat:@"Bearer %@", token] forHTTPHeaderField:@"Authorization"];
+                [NSURLConnection sendAsynchronousRequest:infoRequest queue:queue completionHandler:^(NSURLResponse *infoResponse, NSData *infoData, NSError *infoError) {
+                    if([infoData length] > 0 && infoError == nil) {
+                        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                            NSError *infoParseErr = nil;
+                            NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:infoData] options:NSJSONReadingMutableLeaves error:&infoParseErr];
+                            NSString *email = [res objectForKey:@"email"];
+                            NSString *firstName = [res objectForKey:@"first_name"];
+                            NSString *lastName = [res objectForKey:@"last_name"];
+                            NSString *picture = [res objectForKey:@"picture"];
+                            NSString *uuid = [res objectForKey:@"uuid"];
+                            
+                            //create user object
+                            UserObject *user = [[UserObject alloc] init];
+                            [user setEmail:email];
+                            [user setFirstName:firstName];
+                            [user setLastName:lastName];
+                            [user setPicture: picture];
+                            [user setUuid:uuid];
+                            
+                            // save token, expires into keychain
+                            [util updateKey:@"token" withValue:token];
+                            long expiredDate = expiresIn + (long)[[NSDate date] timeIntervalSince1970];
+                            [util updateKey:@"expiresIn" withValue: [NSString stringWithFormat:@"%ld", expiredDate]];
+                            [util updateKey:@"refreshToken" withValue:refreshToken];
+                            
+                            //login our system asynchronously
+                            [self loginSystem:user token:token refreshToken:refreshToken expires:expiredDate];
+                            
+                            //login success, navigate to next page
+                            [loginModal dismissViewControllerAnimated:YES completion:nil];
+                            [self performSegueWithIdentifier:@"loginSegue" sender:self];
+                        }];
+                    } else {
+                        NSLog([infoError localizedDescription]);
+                    }
+                }];
             }];
         } else {
             [loginModal dismissViewControllerAnimated:YES completion:nil];
         }
     }];
+}
+
+/* Log in our system */
+-(void)loginSystem: (UserObject *)userObject token:(NSString *)token refreshToken:(NSString *)refreshToken expires:(long)expiredDate  {
+    
 }
 
 @end

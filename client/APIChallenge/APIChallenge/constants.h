@@ -21,6 +21,7 @@
 
 #define UBER_API_BASE_URL @"https://api.uber.com"
 #define PRICE_ESTIMATE_ENDPOINT @"/v1/estimates/price"
+#define USER_INFO_URL @"/v1/me"
 
 #define MIN_TARGET_PRICE 1
 #define MAX_TARGET_PRICE 100
