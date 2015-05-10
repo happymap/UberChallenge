@@ -1,7 +1,7 @@
 from flask import Flask, g
 from flask_restful import Api
 from resources.ApiUser import ApiUser
-from resources.ApiRequest import StartRequest, EndRequest
+from resources.ApiRequest import StartRequest, EndRequest, UpdateRequest
 from resources.ApiPriceInquiry import ApiPriceInquiry
 from peewee import *
 
@@ -28,12 +28,14 @@ def after_request(response):
 
 #------------------------------------------------------------
 
-##
-## Actually setup the Api resource routing here
-##
+#
+# Actually setup the Api resource routing here
+#
 api.add_resource(ApiUser, '/user/login', '/user/<string:id>')
 api.add_resource(StartRequest, '/request/start', '/request/<string:id>')
 api.add_resource(EndRequest, '/request/end')
+api.add_resource(UpdateRequest, '/request/location')
 
 if __name__ == '__main__':
     app.run(debug=True)
+    #app.run('0.0.0.0', port=8080, debug=True)

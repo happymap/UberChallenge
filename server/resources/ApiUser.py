@@ -50,8 +50,11 @@ user_parser.add_argument(
 )
 
 class ApiUser(Resource):
-    def post(self):
 
+    def get(self, id):
+        return "test"
+
+    def post(self):
         args = user_parser.parse_args()
 
         try:
@@ -63,7 +66,9 @@ class ApiUser(Resource):
                                       uber_picture = args.picture,
                                       uber_uuid = args.uber_uuid,
                                       token = args.token,
-                                      register_time = datetime.datetime.now())
+                                      register_time = datetime.datetime.now(),
+                                      refresh_token = args.refresh_token,
+                                      token_expires = args.token_expires)
 
         return currentUser.id, 200
 

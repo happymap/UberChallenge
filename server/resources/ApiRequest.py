@@ -5,19 +5,19 @@ import peewee
 
 request_fields = {
   "user_id": fields.Integer,
-  "start_latitude": fields.Float,
-  "start_longitude": fields.Float,
-  "end_latitude": fields.Float,
-  "end_longitude": fields.Float,
-  "target_price": fields.Float,
-  "start_price_estimate": fields.Float,
-  "start_time": fields.Integer,
+  "dest_latitude": fields.Float,
+  "dest_longitude": fields.Float,
+  "target_price": fields.Integer,
+  "start_price_estimate": fields.Integer,
+  "depart_latitude": fields.Float,
+  "depart_longitude": fields.Float,
 
   "request_id": fields.Integer,
-  "end_price_estimate": fields.Float,
-  "saving": fields.Float,
-  "end_time": fields.Integer,
+  "end_price_estimate": fields.Integer,
   "product_id": fields.String,
+
+  "current_latitude": fields.Float,
+  "current_longitude": fields.Float,
 }
 
 request_parser = reqparse.RequestParser()
@@ -44,14 +44,10 @@ request_parser.add_argument(
 )
 request_parser.add_argument(
     'target_price', dest='target_price',
-    type=float, location='form',
+    type=int, location='form',
 )
 request_parser.add_argument(
     'start_price_estimate', dest='start_price_estimate',
-    type=float, location='form',
-)
-request_parser.add_argument(
-    'start_time', dest='start_time',
     type=int, location='form',
 )
 request_parser.add_argument(
@@ -60,32 +56,58 @@ request_parser.add_argument(
 )
 request_parser.add_argument(
     'end_price_estimate', dest='end_price_estimate',
-    type=float, location='form',
-)
-request_parser.add_argument(
-    'saving', dest='saving',
-    type=float, location='form',
-)
-request_parser.add_argument(
-    'end_time', dest='end_time',
     type=int, location='form',
 )
 request_parser.add_argument(
     'product_id', dest='product_id',
     type=str, location='form',
 )
+request_parser.add_argument(
+    'current_latitude', dest='current_latitude',
+    type=float, location='form',
+)
+request_parser.add_argument(
+    'current_longitude', dest='current_longitude',
+    type=float, location='form',
+)
 
 class StartRequest(Resource):
 
+    @marshal_with(request_fields)
     def get(self, id):
-        print "called get"
+        try:
+            currentRequest = Request.get(id = id)
+        except peewee.DoesNotExist:
+            abort(404, message="Request {} doesn't exist".format(args.request_id))
+
+        return currentRequest
 
     def post(self):
         args = request_parser.parse_args()
-        currentRequest = Request.create(user_id=args.user_id,
-                              depart_latitude=args.start_latitude,
-                              depart_longitude=args.start_longitude,
-                              request_time=datetime.datetime.now())
+        currentRequest = Request.create(user = args.user_id,
+                              depart_latitude = args.start_latitude,
+                              depart_longitude = args.start_longitude,
+                              request_time = datetime.datetime.now(),
+                              dest_latitude = args.end_latitude,
+                              dest_longitude = args.end_longitude,
+                              accept_price = args.target_price,
+                              depart_price = args.start_price_estimate,
+                              status = 3)
+
+        return currentRequest.id, 200
+
+class UpdateRequest(Resource):
+
+    def post(self):
+        args = request_parser.parse_args()
+
+        try:
+            currentRequest = Request.get(id = args.request_id)
+            currentRequest.current_latitude = args.current_latitude
+            currentRequest.current_longitude = args.current_longitude
+            currentRequest.save()
+        except peewee.DoesNotExist:
+            abort(404, message="Request {} doesn't exist".format(args.request_id))
 
         return currentRequest.id, 200
 
@@ -96,8 +118,10 @@ class EndRequest(Resource):
         args = request_parser.parse_args()
 
         try:
-            currentRequest = Request.get(id=args.request_id)
-            currentRequest.is_accept = True
+            currentRequest = Request.get(id = args.request_id)
+            currentRequest.status = 6 # status: the request is closed
+            currentRequest.board_price = args.end_price_estimate
+            currentRequest.product = args.product_id
             currentRequest.save()
         except peewee.DoesNotExist:
             abort(404, message="Request {} doesn't exist".format(args.request_id))

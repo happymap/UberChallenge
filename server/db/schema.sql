@@ -15,7 +15,9 @@ CREATE TABLE User(
 	uber_promo_code VARCHAR(20),
 	uber_uuid VARCHAR(36),# uuid consists of 36 characters - 32 hex digits + 4 dashes
 	/* Our user data*/
-	register_time DATETIME
+	register_time DATETIME,
+	refresh_token VARCHAR(255),
+	token_expires INT
 );
 
 DROP TABLE IF EXISTS Request;
@@ -26,6 +28,8 @@ CREATE TABLE Request (
 	user_id BIGINT, # reference to User's id
 	depart_latitude DECIMAL(10,6),
 	depart_longtitude DECIMAL(10,6),
+	current_latitude DECIMAL(10,6),
+	current_longtitude DECIMAL(10,6),
 	dest_latitude DECIMAL(10,6),
 	dest_longtitude DECIMAL(10,6), # since we might use google map api, according to
 	                               # https://developers.google.com/maps/articles/phpsqlsearch_v3?csw=1
@@ -34,14 +38,14 @@ CREATE TABLE Request (
 	accept_price DECIMAL(5,2), # the price target the user can accept
 
 	request_time DATETIME, # the date time when the user starts this request
-
-	is_accept TINYINT(1),  # If the user accepts the this request at last
-	is_active TINYINT(1), # If this request is still active
-	is_find TINYINT(1), # If we find at least one uber that can satisfy user's request
-	uber_request_id VARCHAR(36) # uuid
+	status TINYINT, # 3 when request is created -- at the point when user start a request
+	                # 6 when request is closed. -- at the point when user is on board
+	uber_request_id VARCHAR(36), # uuid
+	parse_key VARCHAR(255), # key for Parse
+	product_id VARCHAR(255)
 );
 
-DROP  TABLE IF EXISTS PriceInquiry;
+DROP TABLE IF EXISTS Price_Inquiry;
 /* PriceInquiry table is used to store best estimated price info from Uber's estimate price API
    Note: Uber's response will be a set of products but we only store the one with best upper bound
    price here.*/
