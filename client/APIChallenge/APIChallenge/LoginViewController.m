@@ -124,7 +124,29 @@
 
 /* Log in our system */
 -(void)loginSystem: (UserObject *)userObject token:(NSString *)token refreshToken:(NSString *)refreshToken expires:(long)expiredDate  {
-    
+    NSString *signupParams = [NSString stringWithFormat:@"first_name=%@&last_name=%@&email=%@&picture=%@&uber_uuid=%@&token=%@&refresh_token=%@&token_expires=%ld", userObject.firstName, userObject.lastName, userObject.email, userObject.picture, userObject.uuid, token, refreshToken, expiredDate];
+    NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, LOGIN_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSData *requestData = [signupParams dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody:requestData];
+    [request setValue:[NSString stringWithFormat:@"%u", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+    NSLog(signupParams);
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if([data length] > 0 && error == nil) {
+//            NSError *parseErr = nil;
+//            NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:data] options: error:&parseErr];
+//            if(parseErr == nil) {
+//                int userId = [[res objectForKey:@"user_id"] intValue];
+//            }
+            int userId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+            [util updateKey:@"userId" withValue:[NSString stringWithFormat:@"%d", userId]];
+            NSLog(@"new userId: %d", userId);
+        } else {
+            NSLog([error localizedDescription]);
+        }
+    }];
 }
 
 @end

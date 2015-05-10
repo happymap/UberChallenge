@@ -29,3 +29,6 @@
 #define MIN_TARGET_PRICE 1
 #define MAX_TARGET_PRICE 100
 #define DEFAULT_PRICE 20
+
+#define SERVER_URL @"http://52.24.179.244:8080"
+#define LOGIN_URL @"/user/login"
