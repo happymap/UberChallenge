@@ -86,6 +86,17 @@
     [cell setTag:indexPath.row];
 //    [cell.distanceLbl setText:[NSString stringWithFormat:@"%0.2fm", [[[results objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]]];
     
+    if (([[results objectAtIndex:indexPath.row] objectForKey:@"low_estimate"] != nil &&
+        [[results objectAtIndex:indexPath.row] objectForKey:@"low_estimate"] != [NSNull null] &&
+        [[[results objectAtIndex:indexPath.row] objectForKey:@"low_estimate"] intValue] > self.targetPrice) ||
+        ([[results objectAtIndex:indexPath.row] objectForKey:@"low_estimate"] == nil ||
+         [[results objectAtIndex:indexPath.row] objectForKey:@"low_estimate"] == [NSNull null])) {
+            
+        //grey out options more expensive that target price
+        [cell.priceLbl setTextColor:[UIColor lightGrayColor]];
+        [cell.nameLbl setTextColor:[UIColor lightGrayColor]];
+    }
+    
     NSString *productDetailsUrl = [NSString stringWithFormat:@"%@%@/%@", UBER_API_BASE_URL, PRODUCT_DETAIL_URL, [[results objectAtIndex:indexPath.row] objectForKey:@"product_id"]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:productDetailsUrl]];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
