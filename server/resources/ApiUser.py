@@ -58,7 +58,7 @@ class ApiUser(Resource):
         args = user_parser.parse_args()
 
         try:
-            currentUser = User.get(id=args.uber_uuid)
+            currentUser = User.get(uber_uuid=args.uber_uuid)
         except peewee.DoesNotExist:
             currentUser = User.create(first_name = args.first_name,
                                       last_name = args.last_name,
