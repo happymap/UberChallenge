@@ -83,8 +83,33 @@
     
     [cell.priceLbl setText:[[results objectAtIndex:indexPath.row] objectForKey:@"estimate"]];
     [cell.nameLbl setText:[[results objectAtIndex:indexPath.row] objectForKey:@"display_name"]];
-    [cell.distanceLbl setText:[NSString stringWithFormat:@"%0.2fm", [[[results objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]]];
     [cell setTag:indexPath.row];
+//    [cell.distanceLbl setText:[NSString stringWithFormat:@"%0.2fm", [[[results objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]]];
+    
+    NSString *productDetailsUrl = [NSString stringWithFormat:@"%@%@/%@", UBER_API_BASE_URL, PRODUCT_DETAIL_URL, [[results objectAtIndex:indexPath.row] objectForKey:@"product_id"]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:productDetailsUrl]];
+    [request setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if([data length] > 0 && error == nil) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                NSError *parseErr = nil;
+                NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:data] options:NSJSONReadingMutableLeaves error:&parseErr];
+                NSString *imgUrl = [res objectForKey:@"image"];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSData *imgData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imgUrl]];
+                    if (imgData) {
+                        UIImage *image = [UIImage imageWithData:imgData];
+                        if (image) {
+                            productCell *updateCell = (id)[tableView cellForRowAtIndexPath:indexPath];
+                            [updateCell setProductImage:image];
+                        }
+                    }
+                });
+            }];
+        } else {
+            
+        }
+    }];
     
     return cell;
 }

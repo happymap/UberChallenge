@@ -20,4 +20,8 @@
     // Configure the view for the selected state
 }
 
+-(void)setProductImage:(UIImage *)image {
+    [self.productImg setImage:image];
+}
+
 @end

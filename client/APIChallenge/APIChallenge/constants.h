@@ -22,6 +22,7 @@
 #define UBER_API_BASE_URL @"https://api.uber.com"
 #define PRICE_ESTIMATE_ENDPOINT @"/v1/estimates/price"
 #define USER_INFO_URL @"/v1/me"
+#define PRODUCT_DETAIL_URL @"/v1/products"
 
 #define UBER_APPSTORE_URL @"https://itunes.apple.com/us/app/uber/id368677368?mt=8"
 

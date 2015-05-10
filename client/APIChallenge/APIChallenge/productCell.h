@@ -13,5 +13,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *priceLbl;
 @property (nonatomic, strong) IBOutlet UILabel *nameLbl;
 @property (nonatomic, strong) IBOutlet UILabel *distanceLbl;
+@property (nonatomic, strong) IBOutlet UIImageView *productImg;
+
+-(void)setProductImage:(UIImage *)image;
 
 @end

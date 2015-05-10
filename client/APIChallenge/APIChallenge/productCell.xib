@@ -15,31 +15,28 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$NaN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UmM-Cj-Ze6">
-                        <rect key="frame" x="234" y="38" width="83" height="21"/>
+                        <rect key="frame" x="234" y="29" width="83" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="amO-Mz-Deb">
-                        <rect key="frame" x="262" y="8" width="55" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kl4-HY-HtK">
+                        <rect key="frame" x="13" y="21" width="81" height="38"/>
+                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Uber" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaO-7T-yXA">
-                        <rect key="frame" x="102" y="38" width="109" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="115" y="29" width="109" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
             </tableViewCellContentView>
             <connections>
-                <outlet property="distanceLbl" destination="amO-Mz-Deb" id="54N-ID-qa6"/>
                 <outlet property="nameLbl" destination="JaO-7T-yXA" id="oeE-DG-aZg"/>
                 <outlet property="priceLbl" destination="UmM-Cj-Ze6" id="bqi-cU-vjb"/>
+                <outlet property="productImg" destination="Kl4-HY-HtK" id="Mfg-mG-RX3"/>
             </connections>
-            <point key="canvasLocation" x="397.5" y="258"/>
+            <point key="canvasLocation" x="299.5" y="207"/>
         </tableViewCell>
     </objects>
 </document>
