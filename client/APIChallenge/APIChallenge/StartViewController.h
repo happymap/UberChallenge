@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <MapKit/MKAnnotation.h>
 
-@interface StartViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate> {
+@interface StartViewController : UIViewController <MKMapViewDelegate, CLLocationManagerDelegate, UIActionSheetDelegate> {
     NSString *destination;
     int targetPrice;
 }
@@ -22,9 +22,11 @@
 @property (nonatomic, strong) IBOutlet UISlider *priceSlider;
 @property (nonatomic, strong) IBOutlet UILabel *priceLabel;
 @property (nonatomic, strong) IBOutlet UILabel *recomPriceLbl;
+@property (nonatomic, strong) IBOutlet UIButton *menuBtn;
 
 - (IBAction)search:(id)sender;
 - (IBAction)slidePrice:(id)sender;
 - (IBAction)start:(id)sender;
+- (IBAction)openMenu:(id)sender;
 
 @end

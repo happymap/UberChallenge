@@ -182,4 +182,26 @@
     }
 }
 
+-(IBAction)openMenu:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Log Out", nil];
+    [actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    switch (buttonIndex) {
+        case 0:
+            NSLog(@"logging out");
+            [KeychainWrapper deleteItemFromKeychainWithIdentifier:@"token"];
+            [KeychainWrapper deleteItemFromKeychainWithIdentifier:@"expiresIn"];
+            [KeychainWrapper deleteItemFromKeychainWithIdentifier:@"refreshToken"];
+            [KeychainWrapper deleteItemFromKeychainWithIdentifier:@"userId"];
+            [self.navigationController popViewControllerAnimated:YES];
+            break;
+        default:
+            break;
+    }
+}
+
+
+
 @end
