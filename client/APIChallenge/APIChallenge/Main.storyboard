@@ -104,7 +104,7 @@
                                 </connections>
                             </button>
                             <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Bcv-Mz-fLk">
-                                <rect key="frame" x="12" y="449" width="294" height="31"/>
+                                <rect key="frame" x="12" y="458" width="294" height="31"/>
                                 <connections>
                                     <action selector="slidePrice:" destination="W1n-ij-Eze" eventType="touchDragInside" id="sW1-px-j3l"/>
                                 </connections>
@@ -113,6 +113,18 @@
                                 <rect key="frame" x="268" y="402" width="41" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ANE-Yw-yix">
+                                <rect key="frame" x="194" y="424" width="59" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Recommended min price: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iX-Mr-fui">
+                                <rect key="frame" x="16" y="424" width="171" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -124,6 +136,7 @@
                         <outlet property="mapView" destination="kXH-1A-GLr" id="VQ9-LF-oso"/>
                         <outlet property="priceLabel" destination="pZg-n0-i9i" id="Pno-HS-j2C"/>
                         <outlet property="priceSlider" destination="Bcv-Mz-fLk" id="2RW-vj-nlC"/>
+                        <outlet property="recomPriceLbl" destination="ANE-Yw-yix" id="hLU-39-tMS"/>
                         <outlet property="searchBtn" destination="sfh-KK-bWM" id="4Yp-1C-73A"/>
                         <segue destination="cnL-0r-Obe" kind="push" identifier="startSegue" id="fmC-p7-OHj"/>
                     </connections>

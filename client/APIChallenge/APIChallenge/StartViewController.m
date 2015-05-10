@@ -9,6 +9,7 @@
 #import "StartViewController.h"
 #import "DashboardViewController.h"
 #import "constants.h"
+#import "KeychainWrapper.h"
 
 @interface StartViewController ()
 
@@ -18,6 +19,7 @@
     NSOperationQueue *queue;
     float targetLat;
     float targetLng;
+    CLLocation *currentLocation;
 }
 
 - (void)viewDidLoad {
@@ -109,6 +111,9 @@
                         destinationPoint.coordinate = coordinate;
                         destinationPoint.title = destination;
                         [self.mapView addAnnotation:destinationPoint];
+                        
+                        //update recommended price
+                        [self updateRecomPrice];
                     }
                 }];
             } else {
@@ -145,6 +150,35 @@
         [vc setTargetPrice:targetPrice];
         [vc setTargetLat:targetLat];
         [vc setTargetLng:targetLng];
+    }
+}
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    currentLocation = newLocation;
+}
+
+-(void)updateRecomPrice {
+    if (currentLocation != nil) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSString *params = [[NSString stringWithFormat:@"start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+            NSMutableURLRequest *priceRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@", UBER_API_BASE_URL, PRICE_ESTIMATE_ENDPOINT, params]]];
+            [priceRequest setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
+            [NSURLConnection sendAsynchronousRequest:priceRequest queue:queue completionHandler:^(NSURLResponse *priceResponse, NSData *priceData, NSError *priceError) {
+                if([priceData length] > 0 && priceError == nil) {
+                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                        NSError *priceErr = nil;
+                        NSDictionary *priceRes = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:priceData] options:NSJSONReadingMutableLeaves error:&priceErr];
+                        NSArray *priceResults = [priceRes objectForKey:@"prices"];
+                        if([priceResults count] > 0) {
+                            NSObject *minPrice = [[priceResults objectAtIndex:0] objectForKey:@"low_estimate"];
+                            if (minPrice != nil && minPrice != [NSNull null]) {
+                                [self.recomPriceLbl setText:[NSString stringWithFormat:@"$%@", (NSString *)minPrice]];
+                            }
+                        }
+                    }];
+                }
+            }];
+        });
     }
 }
 

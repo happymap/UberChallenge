@@ -21,6 +21,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) IBOutlet UISlider *priceSlider;
 @property (nonatomic, strong) IBOutlet UILabel *priceLabel;
+@property (nonatomic, strong) IBOutlet UILabel *recomPriceLbl;
 
 - (IBAction)search:(id)sender;
 - (IBAction)slidePrice:(id)sender;
