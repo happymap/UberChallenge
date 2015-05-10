@@ -113,7 +113,7 @@
                         [self.mapView addAnnotation:destinationPoint];
                         
                         //update recommended price
-//                        [self updateRecomPrice];
+                        [self updateRecomPrice];
                     }
                 }];
             } else {
