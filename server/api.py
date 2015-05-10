@@ -41,5 +41,5 @@ api.add_resource(CancelRequest, '/request/cancel')
 if __name__ == '__main__':
     import logging
     logging.basicConfig(filename='error.log',level=logging.DEBUG)
-    app.run(debug=True)
-    #app.run('0.0.0.0', port=8080, debug=True)
+    #app.run(debug=True)
+    app.run('0.0.0.0', port=8080, debug=True)
