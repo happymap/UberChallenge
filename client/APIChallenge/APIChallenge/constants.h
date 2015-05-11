@@ -26,6 +26,10 @@
 
 #define UBER_APPSTORE_URL @"https://itunes.apple.com/us/app/uber/id368677368?mt=8"
 
+#define PARSE_APP_ID @"P5wz7xWh6lObh25omhnaK4YElPx4OUKFNYyWKkx4"
+
+#define PARSE_CLIENT_ID @"BbxPZXUY0t1Se3l6kZa4zW7YILZAWAxjNYij3sbM"
+
 #define MIN_TARGET_PRICE 1
 #define MAX_TARGET_PRICE 100
 #define DEFAULT_PRICE 20

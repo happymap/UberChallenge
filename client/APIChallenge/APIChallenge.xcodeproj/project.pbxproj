@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		25F11C0D1AFF41A400F43BCB /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C0B1AFF41A400F43BCB /* Bolts.framework */; };
+		25F11C0E1AFF41A400F43BCB /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C0C1AFF41A400F43BCB /* Parse.framework */; };
+		25F11C101AFF423200F43BCB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C0F1AFF423200F43BCB /* AudioToolbox.framework */; };
+		25F11C121AFF423E00F43BCB /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C111AFF423E00F43BCB /* CFNetwork.framework */; };
+		25F11C141AFF424600F43BCB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C131AFF424600F43BCB /* CoreGraphics.framework */; };
+		25F11C161AFF425000F43BCB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C151AFF425000F43BCB /* MobileCoreServices.framework */; };
+		25F11C181AFF425700F43BCB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C171AFF425700F43BCB /* QuartzCore.framework */; };
+		25F11C1A1AFF425E00F43BCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C191AFF425E00F43BCB /* Security.framework */; };
+		25F11C1C1AFF426400F43BCB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C1B1AFF426400F43BCB /* StoreKit.framework */; };
+		25F11C1E1AFF427F00F43BCB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C1D1AFF427F00F43BCB /* SystemConfiguration.framework */; };
+		25F11C201AFF428800F43BCB /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C1F1AFF428800F43BCB /* libz.dylib */; };
+		25F11C221AFF429400F43BCB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C211AFF429400F43BCB /* libsqlite3.dylib */; };
 		810347FC1AD0FCEF00D997BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 810347FB1AD0FCEF00D997BB /* Main.storyboard */; };
 		8122FD521AFEB8C9009EB981 /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8122FD511AFEB8C9009EB981 /* UserObject.m */; };
 		8122FD571AFF62DD009EB981 /* uber_bg_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8122FD561AFF62DD009EB981 /* uber_bg_5.png */; };
@@ -39,6 +51,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		25F11C0B1AFF41A400F43BCB /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		25F11C0C1AFF41A400F43BCB /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		25F11C0F1AFF423200F43BCB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		25F11C111AFF423E00F43BCB /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		25F11C131AFF424600F43BCB /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		25F11C151AFF425000F43BCB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		25F11C171AFF425700F43BCB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		25F11C191AFF425E00F43BCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		25F11C1B1AFF426400F43BCB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		25F11C1D1AFF427F00F43BCB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		25F11C1F1AFF428800F43BCB /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		25F11C211AFF429400F43BCB /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		810347FB1AD0FCEF00D997BB /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		8122FD501AFEB8C9009EB981 /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		8122FD511AFEB8C9009EB981 /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
@@ -80,7 +104,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25F11C221AFF429400F43BCB /* libsqlite3.dylib in Frameworks */,
+				25F11C201AFF428800F43BCB /* libz.dylib in Frameworks */,
+				25F11C1E1AFF427F00F43BCB /* SystemConfiguration.framework in Frameworks */,
+				25F11C1C1AFF426400F43BCB /* StoreKit.framework in Frameworks */,
+				25F11C1A1AFF425E00F43BCB /* Security.framework in Frameworks */,
+				25F11C181AFF425700F43BCB /* QuartzCore.framework in Frameworks */,
+				25F11C161AFF425000F43BCB /* MobileCoreServices.framework in Frameworks */,
+				25F11C141AFF424600F43BCB /* CoreGraphics.framework in Frameworks */,
+				25F11C121AFF423E00F43BCB /* CFNetwork.framework in Frameworks */,
+				25F11C101AFF423200F43BCB /* AudioToolbox.framework in Frameworks */,
 				81FAD3211ADE34C40061FA1C /* MapKit.framework in Frameworks */,
+				25F11C0E1AFF41A400F43BCB /* Parse.framework in Frameworks */,
+				25F11C0D1AFF41A400F43BCB /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +141,18 @@
 		818892031AD0C3F10078FDDB = {
 			isa = PBXGroup;
 			children = (
+				25F11C211AFF429400F43BCB /* libsqlite3.dylib */,
+				25F11C1F1AFF428800F43BCB /* libz.dylib */,
+				25F11C1D1AFF427F00F43BCB /* SystemConfiguration.framework */,
+				25F11C1B1AFF426400F43BCB /* StoreKit.framework */,
+				25F11C191AFF425E00F43BCB /* Security.framework */,
+				25F11C171AFF425700F43BCB /* QuartzCore.framework */,
+				25F11C151AFF425000F43BCB /* MobileCoreServices.framework */,
+				25F11C131AFF424600F43BCB /* CoreGraphics.framework */,
+				25F11C111AFF423E00F43BCB /* CFNetwork.framework */,
+				25F11C0F1AFF423200F43BCB /* AudioToolbox.framework */,
+				25F11C0B1AFF41A400F43BCB /* Bolts.framework */,
+				25F11C0C1AFF41A400F43BCB /* Parse.framework */,
 				81FAD3201ADE34C40061FA1C /* MapKit.framework */,
 				8188920E1AD0C3F10078FDDB /* APIChallenge */,
 				818892281AD0C3F10078FDDB /* APIChallengeTests */,
@@ -383,7 +431,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yifan Ying (MPN67K65SP)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -424,7 +472,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Yifan Ying (MPN67K65SP)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -446,6 +494,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = APIChallenge/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -457,6 +509,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = APIChallenge/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
