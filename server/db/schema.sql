@@ -27,11 +27,11 @@ CREATE TABLE Request (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	user_id BIGINT, # reference to User's id
 	depart_latitude DECIMAL(10,6),
-	depart_longtitude DECIMAL(10,6),
+	depart_longitude DECIMAL(10,6),
 	current_latitude DECIMAL(10,6),
-	current_longtitude DECIMAL(10,6),
+	current_longitude DECIMAL(10,6),
 	dest_latitude DECIMAL(10,6),
-	dest_longtitude DECIMAL(10,6), # since we might use google map api, according to
+	dest_longitude DECIMAL(10,6), # since we might use google map api, according to
 	                               # https://developers.google.com/maps/articles/phpsqlsearch_v3?csw=1
 	depart_price DECIMAL(5,2), # the uber estimated price at where the user depart
 	board_price DECIMAL(5, 2), # the uber estimated price at where the user get on the uber car
@@ -53,7 +53,7 @@ CREATE TABLE Price_Inquiry (
 	id BIGINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	request_id BIGINT, # reference to Request's id
  	current_latitude DECIMAL(10,6),
-	current_longtitude DECIMAL(10,6),
+	current_longitude DECIMAL(10,6),
 	best_price_upper INT, #the lowest upper bound price we get
 	uber_product_id VARCHAR(36), # the product id with that price
 	uber_currency VARCHAR(5), # ISO 4217 currency code
