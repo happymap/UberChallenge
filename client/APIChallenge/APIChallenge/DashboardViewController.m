@@ -83,6 +83,8 @@
     
     [cell.priceLbl setText:[[results objectAtIndex:indexPath.row] objectForKey:@"estimate"]];
     [cell.nameLbl setText:[[results objectAtIndex:indexPath.row] objectForKey:@"display_name"]];
+    float surge_multiplier = [[[results objectAtIndex:indexPath.row] objectForKey:@"surge_multiplier"] floatValue];
+    [cell.surgeMultiplierLbl setText:[NSString stringWithFormat:@"Surge Multiplier: ×%.1f", surge_multiplier]];
     [cell setTag:indexPath.row];
 //    [cell.distanceLbl setText:[NSString stringWithFormat:@"%0.2fm", [[[results objectAtIndex:indexPath.row] objectForKey:@"distance"] floatValue]]];
     
@@ -95,6 +97,7 @@
         //grey out options more expensive that target price
         [cell.priceLbl setTextColor:[UIColor lightGrayColor]];
         [cell.nameLbl setTextColor:[UIColor lightGrayColor]];
+        [cell.surgeMultiplierLbl setTextColor:[UIColor lightGrayColor]];
     }
     
     NSString *productDetailsUrl = [NSString stringWithFormat:@"%@%@/%@", UBER_API_BASE_URL, PRODUCT_DETAIL_URL, [[results objectAtIndex:indexPath.row] objectForKey:@"product_id"]];

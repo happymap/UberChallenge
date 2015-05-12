@@ -15,7 +15,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$NaN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UmM-Cj-Ze6">
-                        <rect key="frame" x="234" y="29" width="83" height="21"/>
+                        <rect key="frame" x="242" y="29" width="83" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -24,8 +24,14 @@
                         <rect key="frame" x="13" y="21" width="81" height="38"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Uber" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JaO-7T-yXA">
-                        <rect key="frame" x="115" y="29" width="109" height="21"/>
+                        <rect key="frame" x="115" y="19" width="109" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Surge Multiplier: ×1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4R-mO-mg1">
+                        <rect key="frame" x="115" y="38" width="129" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -35,8 +41,9 @@
                 <outlet property="nameLbl" destination="JaO-7T-yXA" id="oeE-DG-aZg"/>
                 <outlet property="priceLbl" destination="UmM-Cj-Ze6" id="bqi-cU-vjb"/>
                 <outlet property="productImg" destination="Kl4-HY-HtK" id="Mfg-mG-RX3"/>
+                <outlet property="surgeMultiplierLbl" destination="e4R-mO-mg1" id="qvW-oz-feB"/>
             </connections>
-            <point key="canvasLocation" x="299.5" y="207"/>
+            <point key="canvasLocation" x="173.5" y="189"/>
         </tableViewCell>
     </objects>
 </document>
