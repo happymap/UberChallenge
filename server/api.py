@@ -37,5 +37,7 @@ api.add_resource(EndRequest, '/request/end')
 api.add_resource(UpdateRequest, '/request/location')
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    #app.run('0.0.0.0', port=8080, debug=True)
+    import logging
+    logging.basicConfig(filename='error.log',level=logging.DEBUG)
+    #app.run(debug=True)
+    app.run('0.0.0.0', port=8080, debug=True)

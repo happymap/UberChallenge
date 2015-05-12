@@ -4,6 +4,7 @@ import datetime
 import peewee
 
 request_fields = {
+  "user_id": fields.Integer,
   "first_name": fields.String,
   "last_name": fields.String,
   "email": fields.String,
@@ -54,6 +55,7 @@ class ApiUser(Resource):
     def get(self, id):
         return "test"
 
+    #@marshal_with(return_fields)
     def post(self):
         args = user_parser.parse_args()
 
