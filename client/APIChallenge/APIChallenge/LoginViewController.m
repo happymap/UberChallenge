@@ -143,7 +143,6 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 int userId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
                 [util updateKey:@"userId" withValue:[NSString stringWithFormat:@"%d", userId]];
-                int userId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
                 NSString *userIdStr = [NSString stringWithFormat:@"%d", userId];
                 [util updateKey:@"userId" withValue:userIdStr];
                 NSLog(@"new userId: %d", userId);
