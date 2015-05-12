@@ -38,3 +38,4 @@
 #define LOGIN_URL @"/user/login"
 #define REQUEST_START_URL @"/request/start"
 #define REQUEST_END_URL @"/request/end"
+#define REQUEST_LOCATION_URL @"/request/location"

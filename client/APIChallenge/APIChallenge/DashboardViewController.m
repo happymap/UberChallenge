@@ -186,6 +186,7 @@
     currentLocation = newLocation;
     NSLog(@"location updated: %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
     
+    //update the list
     NSString *params = [[NSString stringWithFormat:@"start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@", UBER_API_BASE_URL, PRICE_ESTIMATE_ENDPOINT, params]]];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
@@ -199,6 +200,27 @@
                     results = [res objectForKey:@"prices"];
                     [self.table reloadData];
                 }];
+            }];
+        } else {
+            NSLog([error localizedDescription]);
+        }
+    }];
+    
+    
+    //update the current location on server side
+    NSString *params2 = [NSString stringWithFormat:@"request_id=%ld&current_latitude=%f&current_longitude=%f", requestId, currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
+    NSString *url2 = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_LOCATION_URL];
+    NSMutableURLRequest *request2 = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url2]];
+    NSData *data2 = [params2 dataUsingEncoding:NSUTF8StringEncoding];
+    [request2 setHTTPMethod:@"POST"];
+    [request2 setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request2 setHTTPBody:data2];
+    [request2 setValue:[NSString stringWithFormat:@"%u", [data2 length]] forHTTPHeaderField:@"Content-Length"];
+    [NSURLConnection sendAsynchronousRequest:request2 queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if([data length] > 0 && error == nil) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                int result = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                NSLog(@"request id: %d", result);
             }];
         } else {
             NSLog([error localizedDescription]);
