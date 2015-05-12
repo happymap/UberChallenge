@@ -113,10 +113,6 @@
                             
                             //login our system asynchronously
                             [self loginSystem:user token:token refreshToken:refreshToken expires:expiredDate];
-                            
-                            //login success, navigate to next page
-                            [loginModal dismissViewControllerAnimated:YES completion:nil];
-                            [self performSegueWithIdentifier:@"loginSegue" sender:self];
                         }];
                     } else {
                         NSLog([infoError localizedDescription]);
@@ -142,14 +138,15 @@
     NSLog(signupParams);
     [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
         if([data length] > 0 && error == nil) {
-//            NSError *parseErr = nil;
-//            NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:data] options: error:&parseErr];
-//            if(parseErr == nil) {
-//                int userId = [[res objectForKey:@"user_id"] intValue];
-//            }
-            int userId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
-            [util updateKey:@"userId" withValue:[NSString stringWithFormat:@"%d", userId]];
-            NSLog(@"new userId: %d", userId);
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                int userId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                [util updateKey:@"userId" withValue:[NSString stringWithFormat:@"%d", userId]];
+                NSLog(@"new userId: %d", userId);
+                
+                //login success, navigate to next page
+                [loginModal dismissViewControllerAnimated:YES completion:nil];
+                [self performSegueWithIdentifier:@"loginSegue" sender:self];
+            }];
         } else {
             NSLog([error localizedDescription]);
         }

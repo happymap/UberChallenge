@@ -14,6 +14,7 @@
 @property int targetPrice;
 @property float targetLat;
 @property float targetLng;
+@property long requestId;
 
 @property (nonatomic, strong) CLLocationManager *locationManager;
 

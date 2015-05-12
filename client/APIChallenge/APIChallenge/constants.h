@@ -36,3 +36,5 @@
 
 #define SERVER_URL @"http://52.24.179.244:8080"
 #define LOGIN_URL @"/user/login"
+#define REQUEST_START_URL @"/request/start"
+#define REQUEST_END_URL @"/request/end"

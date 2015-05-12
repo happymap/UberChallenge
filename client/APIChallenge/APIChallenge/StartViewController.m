@@ -20,6 +20,8 @@
     float targetLat;
     float targetLng;
     CLLocation *currentLocation;
+    NSInteger startPrice;
+    long requestId;
 }
 
 - (void)viewDidLoad {
@@ -126,7 +128,26 @@
 
 - (IBAction)start:(id)sender {
     if (destination != nil) {
-        [self performSegueWithIdentifier:@"startSegue" sender:self];
+        NSString *params = [NSString stringWithFormat:@"user_id=%@&start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f&target_price=%d&start_price_estimate=%d", [KeychainWrapper keychainStringFromMatchingIdentifier:@"userId"], currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, targetPrice, startPrice];
+        NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_START_URL];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        NSData *requestData = [params dataUsingEncoding:NSUTF8StringEncoding];
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+        [request setHTTPBody:requestData];
+        [request setValue:[NSString stringWithFormat:@"%u", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+        NSLog(params);
+        [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                if([data length] > 0 && error == nil) {
+                    requestId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                    NSLog(@"new userId: %d", requestId);
+                    [self performSegueWithIdentifier:@"startSegue" sender:self];
+                } else {
+                    NSLog([error localizedDescription]);
+                }
+            }];
+        }];
     }
 }
 
@@ -150,6 +171,7 @@
         [vc setTargetPrice:targetPrice];
         [vc setTargetLat:targetLat];
         [vc setTargetLng:targetLng];
+        [vc setRequestId:requestId];
     }
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -172,6 +194,7 @@
                         if([priceResults count] > 0) {
                             NSObject *minPrice = [[priceResults objectAtIndex:0] objectForKey:@"low_estimate"];
                             if (minPrice != nil && minPrice != [NSNull null]) {
+                                startPrice = (NSInteger)minPrice;
                                 [self.recomPriceLbl setText:[NSString stringWithFormat:@"$%@", (NSString *)minPrice]];
                             }
                         }

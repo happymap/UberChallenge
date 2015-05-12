@@ -21,7 +21,7 @@
     NSArray *results;
 }
 
-@synthesize targetLat, targetLng;
+@synthesize targetLat, targetLng, requestId, targetPrice;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -128,18 +128,45 @@
 - (void)handleSingleTap:(UITapGestureRecognizer *)recognizer {
     UIView *view = recognizer.view; //cast pointer to the derived class if needed
     NSLog(@"%d", view.tag);
-    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
-        // Do something awesome - the app is installed! Launch App.
-        
-        NSString *uberUrl = [NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=%0.2fm&pickup[longitude]=%0.2fm&dropoff[latitude]=%0.2fm&dropoff[longitude]=%0.2fm&product_id=%@", CLIENT_ID, currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, [[results objectAtIndex:view.tag] objectForKey:@"product_id"]];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:uberUrl]];
-        
+    
+    //update request status
+    NSString *product_id = [[results objectAtIndex:view.tag] objectForKey:@"product_id"];
+    NSObject *raw_low_estimate = [[results objectAtIndex:view.tag] objectForKey:@"low_estimate"];
+    int low_estimate = -1;
+    if (raw_low_estimate != nil && raw_low_estimate != [NSNull null]) {
+        low_estimate = [[[results objectAtIndex:view.tag] objectForKey:@"low_estimate"] intValue];
     }
-    else {
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UBER_APPSTORE_URL]];
-        // No Uber app! Open Mobile Website.
-    }
+    
+    NSString *params = [NSString stringWithFormat:@"request_id=%ld&end_price_estimate=%d&product_id=%@", requestId,  low_estimate, product_id];
+    NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_END_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSData *requestData = [params dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody:requestData];
+    [request setValue:[NSString stringWithFormat:@"%u", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if([data length] > 0 && error == nil) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                int result = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                NSLog(@"request id: %d", result);
+                
+                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
+                    // Do something awesome - the app is installed! Launch App.
+                    
+                    NSString *uberUrl = [NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=%0.2fm&pickup[longitude]=%0.2fm&dropoff[latitude]=%0.2fm&dropoff[longitude]=%0.2fm&product_id=%@", CLIENT_ID, currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, product_id];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:uberUrl]];
+                    
+                } else {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UBER_APPSTORE_URL]];
+                    // No Uber app! Open Mobile Website.
+                }
+            
+            }];
+        } else {
+            NSLog([error localizedDescription]);
+        }
+    }];
 }
 
 
@@ -149,6 +176,8 @@
 }
 
 - (IBAction)stop:(id)sender {
+//    NSString *params = [NSString stringWithFormat:@""];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
