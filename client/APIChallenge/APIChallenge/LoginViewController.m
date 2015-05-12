@@ -12,6 +12,8 @@
 #import "util.h"
 #import "KeychainWrapper.h"
 #import "UserObject.h"
+#import <Parse/Parse.h>
+
 
 @interface LoginViewController ()
 
@@ -141,12 +143,20 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 int userId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
                 [util updateKey:@"userId" withValue:[NSString stringWithFormat:@"%d", userId]];
+                int userId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                NSString *userIdStr = [NSString stringWithFormat:@"%d", userId];
+                [util updateKey:@"userId" withValue:userIdStr];
                 NSLog(@"new userId: %d", userId);
+                PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+                NSString *channelId = [NSString stringWithFormat:@"userId-%@", userIdStr];
+                [currentInstallation addUniqueObject:channelId forKey:@"channels"];
+                [currentInstallation saveInBackground];
                 
                 //login success, navigate to next page
                 [loginModal dismissViewControllerAnimated:YES completion:nil];
                 [self performSegueWithIdentifier:@"loginSegue" sender:self];
             }];
+
         } else {
             NSLog([error localizedDescription]);
         }

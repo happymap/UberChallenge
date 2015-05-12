@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "constants.h"
+#import "KeychainWrapper.h"
+
 
 @interface AppDelegate ()
 
@@ -48,6 +50,15 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSArray *subscribedChannels = [PFInstallation currentInstallation].channels;
+    NSString *userIdStr = [KeychainWrapper keychainStringFromMatchingIdentifier:@"userId"];
+    NSString *channelId = [NSString stringWithFormat:@"userId-%@", userIdStr];
+    if ([subscribedChannels count] == 0 && channelId != nil) {
+        PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+        NSLog(@"registering channel %@", channelId);
+        [currentInstallation addUniqueObject:channelId forKey:@"channels"];
+        [currentInstallation saveInBackground];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
