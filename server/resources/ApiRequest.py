@@ -128,10 +128,20 @@ class EndRequest(Resource):
 
         return args.request_id, 200
 
+class CancelRequest(Resource):
+
+    def post(self):
+        args = request_parser.parse_args()
+
+        try:
+            currentRequest = Request.get(id = args.request_id)
+            currentRequest.status = 1 # status: the request is canceled
+            currentRequest.save()
+        except peewee.DoesNotExist:
+            abort(404, message="Request {} doesn't exist".format(args.request_id))
 
 
-
-
+        return args.request_id, 200
 
 
 

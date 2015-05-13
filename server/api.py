@@ -1,7 +1,7 @@
 from flask import Flask, g
 from flask_restful import Api
 from resources.ApiUser import ApiUser
-from resources.ApiRequest import StartRequest, EndRequest, UpdateRequest
+from resources.ApiRequest import StartRequest, EndRequest, UpdateRequest, CancelRequest
 from resources.ApiPriceInquiry import ApiPriceInquiry
 from peewee import *
 
@@ -35,6 +35,8 @@ api.add_resource(ApiUser, '/user/login', '/user/<string:id>')
 api.add_resource(StartRequest, '/request/start', '/request/<string:id>')
 api.add_resource(EndRequest, '/request/end')
 api.add_resource(UpdateRequest, '/request/location')
+api.add_resource(CancelRequest, '/request/cancel')
+
 
 if __name__ == '__main__':
     import logging
