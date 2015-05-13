@@ -92,6 +92,8 @@ class StartRequest(Resource):
                               dest_longitude = args.end_longitude,
                               accept_price = args.target_price,
                               depart_price = args.start_price_estimate,
+                              current_latitude = args.start_latitude,
+                              current_longitude = args.start_longitude,
                               status = 3)
 
         return currentRequest.id, 200
