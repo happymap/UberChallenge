@@ -179,9 +179,25 @@
 }
 
 - (IBAction)stop:(id)sender {
-//    NSString *params = [NSString stringWithFormat:@""];
-    
-    [self.navigationController popViewControllerAnimated:YES];
+    NSString *params = [NSString stringWithFormat:@"request_id=%ld", requestId];
+    NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_CANCEL_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSData *requestData = [params dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody:requestData];
+    [request setValue:[NSString stringWithFormat:@"%u", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        if([data length] > 0 && error == nil) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                int result = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                NSLog(@"request id: %d", result);
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        } else {
+            NSLog([error localizedDescription]);
+        }
+    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
