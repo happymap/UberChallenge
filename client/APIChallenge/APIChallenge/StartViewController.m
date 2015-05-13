@@ -193,9 +193,12 @@
                         NSArray *priceResults = [priceRes objectForKey:@"prices"];
                         if([priceResults count] > 0) {
                             NSObject *minPrice = [[priceResults objectAtIndex:0] objectForKey:@"low_estimate"];
+                            float surgeMultiplier = [[[priceResults objectAtIndex:0] objectForKey:@"surge_multiplier"] floatValue];
                             if (minPrice != nil && minPrice != [NSNull null]) {
                                 startPrice = (NSInteger)minPrice;
                                 [self.recomPriceLbl setText:[NSString stringWithFormat:@"$%@", (NSString *)minPrice]];
+                                int price = [[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue];
+                                [self.lowPriceLbl setText:[NSString stringWithFormat:@"$%d", (int)(price/surgeMultiplier)]];
                             }
                         }
                     }];

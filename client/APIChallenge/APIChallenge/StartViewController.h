@@ -22,6 +22,7 @@
 @property (nonatomic, strong) IBOutlet UISlider *priceSlider;
 @property (nonatomic, strong) IBOutlet UILabel *priceLabel;
 @property (nonatomic, strong) IBOutlet UILabel *recomPriceLbl;
+@property (nonatomic, strong) IBOutlet UILabel *lowPriceLbl;
 @property (nonatomic, strong) IBOutlet UIButton *menuBtn;
 
 - (IBAction)search:(id)sender;
