@@ -22,6 +22,7 @@
     CLLocation *currentLocation;
     NSInteger startPrice;
     long requestId;
+    NSInteger lowPrice;
 }
 
 - (void)viewDidLoad {
@@ -128,6 +129,36 @@
 
 - (IBAction)start:(id)sender {
     if (destination != nil) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Guidelines"
+                                                        message:@""
+                                                       delegate:self
+                                              cancelButtonTitle:@"Cancel"
+                                              otherButtonTitles:@"Proceed",nil];
+        
+        if (targetPrice > startPrice) {
+            [alert setMessage:@"Your budget is above best price now. You can book a uber now!"];
+        } else if (targetPrice == startPrice) {
+            [alert setMessage:@"Your budget is equal to best price now. You can book a uber now!"];
+        } else if (targetPrice < lowPrice) {
+            [alert setMessage:@"Your budget is below possible lowest cost at your location. Let's take a walk towards your destination!"];
+        } else {
+            [alert setMessage:@"Take a break. We are monitoring the price for you."];
+        }
+        
+        [alert show];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Proceed"
+                                                        message:@"Please set your destination :)"
+                                                       delegate:self
+                                              cancelButtonTitle:@"Got it!"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 1) {
         NSString *params = [NSString stringWithFormat:@"user_id=%@&start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f&target_price=%d&start_price_estimate=%d", [KeychainWrapper keychainStringFromMatchingIdentifier:@"userId"], currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, targetPrice, startPrice];
         NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_START_URL];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -195,10 +226,10 @@
                             NSObject *minPrice = [[priceResults objectAtIndex:0] objectForKey:@"low_estimate"];
                             float surgeMultiplier = [[[priceResults objectAtIndex:0] objectForKey:@"surge_multiplier"] floatValue];
                             if (minPrice != nil && minPrice != [NSNull null]) {
-                                startPrice = (NSInteger)minPrice;
+                                startPrice = [[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue];
                                 [self.recomPriceLbl setText:[NSString stringWithFormat:@"$%@", (NSString *)minPrice]];
-                                int price = [[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue];
-                                [self.lowPriceLbl setText:[NSString stringWithFormat:@"$%d", (int)(price/surgeMultiplier)]];
+                                lowPrice = (int)([[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue]/surgeMultiplier);
+                                [self.lowPriceLbl setText:[NSString stringWithFormat:@"$%d", lowPrice]];
                             }
                         }
                     }];
