@@ -3,11 +3,11 @@ import sys, MySQLdb, requests, json, httplib
 
 
 
-DB_INFO = {'user': 'root', 
-'passwd': '', 
+DB_INFO = {'user': 'uberhack', 
+'passwd': 'uberhack', 
 'host': '127.0.0.1', 
 'port': 3306,
-'name': 'alphaviana'
+'name': 'uberhack'
 }
 
 ACTIVE_STATUS = 3
