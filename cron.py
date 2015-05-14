@@ -1,6 +1,7 @@
-import sys, MySQLdb, requests, json, httplib
+import sys, MySQLdb, requests, json, httplib, sched, time, threading
 
 
+INTERVAL = 30
 
 
 DB_INFO = {'user': 'uberhack', 
@@ -91,4 +92,9 @@ def notify_parse(userId, price):
     result = json.loads(connection.getresponse().read())
     print result
 
-scan_table()
+def repeater():
+    scan_table()
+    print time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
+    threading.Timer(INTERVAL, scan_table).start()
+
+repeater()
