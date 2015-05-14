@@ -23,7 +23,7 @@ DEST_LON_POS = 7
 ACCEPT_PRICE_POS = 10
 
 
-ACTIVE_REQUEST_QUERY = 'select * from Request'# where status =  %d' % ACTIVE_STATUS
+ACTIVE_REQUEST_QUERY = 'select * from Request where status =  %d' % ACTIVE_STATUS
 
 connection = httplib.HTTPSConnection('api.parse.com', 443)
 connection.connect()
