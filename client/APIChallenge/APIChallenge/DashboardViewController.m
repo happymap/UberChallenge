@@ -21,7 +21,7 @@
     NSArray *results;
 }
 
-@synthesize targetLat, targetLng, requestId, targetPrice;
+@synthesize targetLat, targetLng, requestId, targetPrice, mode;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -51,7 +51,11 @@
     [self.locationManager startMonitoringSignificantLocationChanges];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.distanceFilter = 30; //meters
-
+    
+    //set stop btn title
+    if (mode == BOOK) {
+        [self.stopButton setTitle:@"Reset" forState:UIControlStateNormal];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -134,6 +138,13 @@
     
     //update request status
     NSString *product_id = [[results objectAtIndex:view.tag] objectForKey:@"product_id"];
+    
+    //if mode is BOOK, no need to update request
+    if (mode == BOOK) {
+        [self placeUberOrder:product_id];
+        return;
+    }
+    
     NSObject *raw_low_estimate = [[results objectAtIndex:view.tag] objectForKey:@"low_estimate"];
     int low_estimate = -1;
     if (raw_low_estimate != nil && raw_low_estimate != [NSNull null]) {
@@ -153,18 +164,7 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 int result = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
                 NSLog(@"request id: %d", result);
-                
-                if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
-                    // Do something awesome - the app is installed! Launch App.
-                    
-                    NSString *uberUrl = [NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=%0.2fm&pickup[longitude]=%0.2fm&dropoff[latitude]=%0.2fm&dropoff[longitude]=%0.2fm&product_id=%@", CLIENT_ID, currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, product_id];
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:uberUrl]];
-                    
-                } else {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UBER_APPSTORE_URL]];
-                    // No Uber app! Open Mobile Website.
-                }
-            
+                [self placeUberOrder:product_id];
             }];
         } else {
             NSLog([error localizedDescription]);
@@ -179,6 +179,11 @@
 }
 
 - (IBAction)stop:(id)sender {
+    if (mode == BOOK) {
+        [self.navigationController popViewControllerAnimated:YES];
+        return;
+    }
+    
     NSString *params = [NSString stringWithFormat:@"request_id=%ld", requestId];
     NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_CANCEL_URL];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -246,5 +251,19 @@
         }
     }];
 }
+
+- (void)placeUberOrder:(NSString *)product_id {
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"uber://"]]) {
+        // Do something awesome - the app is installed! Launch App.
+        
+        NSString *uberUrl = [NSString stringWithFormat:@"uber://?client_id=%@&action=setPickup&pickup[latitude]=%0.2fm&pickup[longitude]=%0.2fm&dropoff[latitude]=%0.2fm&dropoff[longitude]=%0.2fm&product_id=%@", CLIENT_ID, currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, product_id];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:uberUrl]];
+        
+    } else {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UBER_APPSTORE_URL]];
+        // No Uber app! Open Mobile Website.
+    }
+}
+
 
 @end

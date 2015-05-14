@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>98D26D05-BE5E-409C-8659-44658D455F97</string>
 	<key>IDESourceControlProjectName</key>
-	<string>APIChallenge</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>E53AC93A8A6067BEAF2C556D368611B1785806A4</key>
 		<string>https://github.com/happymap/UberChallenge.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>client/APIChallenge/APIChallenge.xcodeproj</string>
+	<string>client/APIChallenge/APIChallenge.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>E53AC93A8A6067BEAF2C556D368611B1785806A4</key>

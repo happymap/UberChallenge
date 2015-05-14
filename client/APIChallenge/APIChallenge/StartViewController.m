@@ -23,6 +23,7 @@
     NSInteger startPrice;
     long requestId;
     NSInteger lowPrice;
+    ModeEnum mode;
 }
 
 - (void)viewDidLoad {
@@ -55,7 +56,6 @@
     [self.mapView setMapType:MKMapTypeStandard];
     [self.mapView setZoomEnabled:YES];
     [self.mapView setScrollEnabled:YES];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -129,24 +129,21 @@
 
 - (IBAction)start:(id)sender {
     if (destination != nil) {
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Guidelines"
-                                                        message:@""
-                                                       delegate:self
-                                              cancelButtonTitle:@"Cancel"
-                                              otherButtonTitles:@"Proceed",nil];
-        
-        if (targetPrice > startPrice) {
-            [alert setMessage:@"Your budget is above best price now. You can book a uber now!"];
-        } else if (targetPrice == startPrice) {
-            [alert setMessage:@"Your budget is equal to best price now. You can book a uber now!"];
+        if (targetPrice >= startPrice) {
+            [self.startBtn setTitle:@"Book Now" forState:UIControlStateNormal];
+            mode = BOOK;
+            [self performSegueWithIdentifier:@"startSegue" sender:self];
         } else if (targetPrice < lowPrice) {
-            [alert setMessage:@"Your budget is below possible lowest cost at your location. Let's take a walk towards your destination!"];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Guidelines"
+                                                            message:@"Your budget is below possible lowest cost at your location. Let's take a walk towards your destination!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Cancel"
+                                                  otherButtonTitles:@"Proceed",nil];
+            [alert show];
         } else {
-            [alert setMessage:@"Take a break. We are monitoring the price for you."];
+            [self startMonitoring];
         }
         
-        [alert show];
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Proceed"
                                                         message:@"Please set your destination :)"
@@ -159,27 +156,31 @@
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        NSString *params = [NSString stringWithFormat:@"user_id=%@&start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f&target_price=%d&start_price_estimate=%d", [KeychainWrapper keychainStringFromMatchingIdentifier:@"userId"], currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, targetPrice, startPrice];
-        NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_START_URL];
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-        NSData *requestData = [params dataUsingEncoding:NSUTF8StringEncoding];
-        [request setHTTPMethod:@"POST"];
-        [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
-        [request setHTTPBody:requestData];
-        [request setValue:[NSString stringWithFormat:@"%u", [requestData length]] forHTTPHeaderField:@"Content-Length"];
-        NSLog(params);
-        [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                if([data length] > 0 && error == nil) {
-                    requestId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
-                    NSLog(@"new userId: %d", requestId);
-                    [self performSegueWithIdentifier:@"startSegue" sender:self];
-                } else {
-                    NSLog([error localizedDescription]);
-                }
-            }];
-        }];
+        [self startMonitoring];
     }
+}
+
+- (void)startMonitoring {
+    mode = MONITOR;
+    NSString *params = [NSString stringWithFormat:@"user_id=%@&start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f&target_price=%d&start_price_estimate=%d", [KeychainWrapper keychainStringFromMatchingIdentifier:@"userId"], currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng, targetPrice, startPrice];
+    NSString *url = [NSString stringWithFormat:@"%@%@", SERVER_URL, REQUEST_START_URL];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSData *requestData = [params dataUsingEncoding:NSUTF8StringEncoding];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"content-type"];
+    [request setHTTPBody:requestData];
+    [request setValue:[NSString stringWithFormat:@"%u", [requestData length]] forHTTPHeaderField:@"Content-Length"];
+    NSLog(params);
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            if([data length] > 0 && error == nil) {
+                requestId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                [self performSegueWithIdentifier:@"startSegue" sender:self];
+            } else {
+                NSLog([error localizedDescription]);
+            }
+        }];
+    }];
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -203,6 +204,7 @@
         [vc setTargetLat:targetLat];
         [vc setTargetLng:targetLng];
         [vc setRequestId:requestId];
+        [vc setMode:mode];
     }
 }
 - (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
@@ -258,7 +260,5 @@
             break;
     }
 }
-
-
 
 @end

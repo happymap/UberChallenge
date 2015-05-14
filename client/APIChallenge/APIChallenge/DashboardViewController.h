@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import "constants.h"
 
 @interface DashboardViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate>
 
@@ -21,6 +22,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *priceLabel;
 @property (nonatomic, strong) IBOutlet UIButton *stopButton;
 @property (nonatomic, strong) IBOutlet UITableView *table;
+
+@property ModeEnum mode;
 
 - (IBAction)stop:(id)sender;
 

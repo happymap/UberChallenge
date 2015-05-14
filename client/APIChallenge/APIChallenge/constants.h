@@ -40,3 +40,8 @@
 #define REQUEST_END_URL @"/request/end"
 #define REQUEST_LOCATION_URL @"/request/location"
 #define REQUEST_CANCEL_URL @"/request/cancel"
+
+typedef enum {
+    BOOK = 0,
+    MONITOR = 1
+} ModeEnum;
