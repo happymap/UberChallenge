@@ -19,6 +19,7 @@
     NSOperationQueue *queue;
     CLLocation *currentLocation;
     NSArray *results;
+    NSString *bestProductId;
 }
 
 @synthesize targetLat, targetLng, requestId, targetPrice, mode;
@@ -54,7 +55,7 @@
     
     //set stop btn title
     if (mode == BOOK) {
-        [self.stopButton setTitle:@"Reset" forState:UIControlStateNormal];
+        [self.stopButton setTitle:@"Reset My Request" forState:UIControlStateNormal];
     }
 }
 
@@ -104,6 +105,10 @@
         [cell.surgeMultiplierLbl setTextColor:[UIColor lightGrayColor]];
     }
     
+    if ([[results objectAtIndex:indexPath.row] objectForKey:@"product_id"] == bestProductId) {
+        [cell.bestPriceLbl setHidden:NO];
+    }
+    
     NSString *productDetailsUrl = [NSString stringWithFormat:@"%@%@/%@", UBER_API_BASE_URL, PRODUCT_DETAIL_URL, [[results objectAtIndex:indexPath.row] objectForKey:@"product_id"]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:productDetailsUrl]];
     [request setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
@@ -125,7 +130,7 @@
                 });
             }];
         } else {
-            
+            NSLog([error localizedDescription]);
         }
     }];
     
@@ -222,6 +227,7 @@
                     NSError *parseErr = nil;
                     NSDictionary *res = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:data] options:NSJSONReadingMutableLeaves error:&parseErr];
                     results = [res objectForKey:@"prices"];
+                    [self analyzeResults];
                     [self.table reloadData];
                 }];
             }];
@@ -263,6 +269,22 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UBER_APPSTORE_URL]];
         // No Uber app! Open Mobile Website.
     }
+}
+
+- (void)analyzeResults {
+    int lowEstimate = INT_MAX;
+    NSString *product = nil;
+    for(int i = 0; i < [results count]; i++) {
+        NSObject *lowPriceObject = [[results objectAtIndex:i] objectForKey:@"low_estimate"];
+        if (lowPriceObject != nil && lowPriceObject != [NSNull null]) {
+            int price = [[[results objectAtIndex:i] objectForKey:@"low_estimate"] intValue];
+            if (price < lowEstimate) {
+                lowEstimate = price;
+                product = [[results objectAtIndex:i] objectForKey:@"product_id"];
+            }
+        }
+    }
+    bestProductId = product;
 }
 
 

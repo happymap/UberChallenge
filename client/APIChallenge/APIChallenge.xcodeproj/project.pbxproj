@@ -15,7 +15,6 @@
 		25F11C161AFF425000F43BCB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C151AFF425000F43BCB /* MobileCoreServices.framework */; };
 		25F11C181AFF425700F43BCB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C171AFF425700F43BCB /* QuartzCore.framework */; };
 		25F11C1A1AFF425E00F43BCB /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C191AFF425E00F43BCB /* Security.framework */; };
-		25F11C1C1AFF426400F43BCB /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C1B1AFF426400F43BCB /* StoreKit.framework */; };
 		25F11C1E1AFF427F00F43BCB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C1D1AFF427F00F43BCB /* SystemConfiguration.framework */; };
 		25F11C201AFF428800F43BCB /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C1F1AFF428800F43BCB /* libz.dylib */; };
 		25F11C221AFF429400F43BCB /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 25F11C211AFF429400F43BCB /* libsqlite3.dylib */; };
@@ -59,7 +58,6 @@
 		25F11C151AFF425000F43BCB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		25F11C171AFF425700F43BCB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		25F11C191AFF425E00F43BCB /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		25F11C1B1AFF426400F43BCB /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		25F11C1D1AFF427F00F43BCB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		25F11C1F1AFF428800F43BCB /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		25F11C211AFF429400F43BCB /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -107,7 +105,6 @@
 				25F11C221AFF429400F43BCB /* libsqlite3.dylib in Frameworks */,
 				25F11C201AFF428800F43BCB /* libz.dylib in Frameworks */,
 				25F11C1E1AFF427F00F43BCB /* SystemConfiguration.framework in Frameworks */,
-				25F11C1C1AFF426400F43BCB /* StoreKit.framework in Frameworks */,
 				25F11C1A1AFF425E00F43BCB /* Security.framework in Frameworks */,
 				25F11C181AFF425700F43BCB /* QuartzCore.framework in Frameworks */,
 				25F11C161AFF425000F43BCB /* MobileCoreServices.framework in Frameworks */,
@@ -144,7 +141,6 @@
 				25F11C211AFF429400F43BCB /* libsqlite3.dylib */,
 				25F11C1F1AFF428800F43BCB /* libz.dylib */,
 				25F11C1D1AFF427F00F43BCB /* SystemConfiguration.framework */,
-				25F11C1B1AFF426400F43BCB /* StoreKit.framework */,
 				25F11C191AFF425E00F43BCB /* Security.framework */,
 				25F11C171AFF425700F43BCB /* QuartzCore.framework */,
 				25F11C151AFF425000F43BCB /* MobileCoreServices.framework */,
@@ -311,7 +307,11 @@
 				TargetAttributes = {
 					8188920B1AD0C3F10078FDDB = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = S7368WEFRH;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
 							com.apple.Maps.iOS = {
 								enabled = 1;
 							};
@@ -448,7 +448,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -483,7 +483,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

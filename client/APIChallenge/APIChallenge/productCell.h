@@ -15,6 +15,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *distanceLbl;
 @property (nonatomic, strong) IBOutlet UIImageView *productImg;
 @property (nonatomic, strong) IBOutlet UILabel *surgeMultiplierLbl;
+@property (nonatomic, strong) IBOutlet UILabel *bestPriceLbl;
 
 -(void)setProductImage:(UIImage *)image;
 
