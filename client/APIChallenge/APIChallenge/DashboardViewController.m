@@ -20,6 +20,7 @@
     CLLocation *currentLocation;
     NSArray *results;
     NSString *bestProductId;
+    long lastTimeLocationUpdated;
 }
 
 @synthesize targetLat, targetLng, requestId, targetPrice, mode;
@@ -49,7 +50,7 @@
             }
         }
     }
-    [self.locationManager startMonitoringSignificantLocationChanges];
+    [self.locationManager startUpdatingLocation];
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.distanceFilter = 30; //meters
     
@@ -57,6 +58,9 @@
     if (mode == BOOK) {
         [self.stopButton setTitle:@"Reset My Request" forState:UIControlStateNormal];
     }
+    
+    //init variables
+    lastTimeLocationUpdated = -1l;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -185,6 +189,7 @@
 
 - (IBAction)stop:(id)sender {
     if (mode == BOOK) {
+        [queue cancelAllOperations];
         [self.navigationController popViewControllerAnimated:YES];
         return;
     }
@@ -202,6 +207,7 @@
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 int result = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
                 NSLog(@"request id: %d", result);
+                [queue cancelAllOperations];
                 [self.navigationController popViewControllerAnimated:YES];
             }];
         } else {
@@ -214,6 +220,13 @@
     didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     currentLocation = newLocation;
     NSLog(@"location updated: %f, %f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+    
+    long now = [[NSDate date] timeIntervalSince1970];
+    if (now - lastTimeLocationUpdated < 60) {
+        return;
+    } else {
+        lastTimeLocationUpdated = now;
+    }
     
     //update the list
     NSString *params = [[NSString stringWithFormat:@"start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
@@ -232,6 +245,7 @@
                 }];
             }];
         } else {
+            NSLog([NSString stringWithFormat:@"response code: %d", [(NSHTTPURLResponse *)response statusCode]]);
             NSLog([error localizedDescription]);
         }
     }];

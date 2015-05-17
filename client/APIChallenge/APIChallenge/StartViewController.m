@@ -1,3 +1,4 @@
+
 //
 //  StartViewController.m
 //  APIChallenge
@@ -91,7 +92,7 @@
     destination = [self.addressField text];
     
     if ([destination length] > 0) {
-        NSString *params = [[NSString stringWithFormat:@"address=%@&sensor=false&key=%@", destination, GEOCODE_KEY] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        NSString *params = [[NSString stringWithFormat:@"address=%@&sensor=false&components=country:US&key=%@", destination, GEOCODE_KEY] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?%@", GEOCODE_URL, params]]];
         [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
             if([data length] > 0 && error == nil) {
@@ -121,17 +122,17 @@
                 }];
             } else {
                 NSLog(@"No address Found");
-                
+                destination = nil;
             }
         }];
     }
 }
 
 - (IBAction)start:(id)sender {
-    if (destination != nil) {
+    if (destination != nil && [destination length] > 0) {
         if (targetPrice >= startPrice) {
-            [self.startBtn setTitle:@"Book Now" forState:UIControlStateNormal];
             mode = BOOK;
+            [queue cancelAllOperations];
             [self performSegueWithIdentifier:@"startSegue" sender:self];
         } else if (targetPrice < lowPrice) {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Guidelines"
@@ -146,7 +147,7 @@
         
     } else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Unable to Proceed"
-                                                        message:@"Please set your destination :)"
+                                                        message:@"Destination is not set or Uber service is not available."
                                                        delegate:self
                                               cancelButtonTitle:@"Got it!"
                                               otherButtonTitles:nil];
@@ -175,6 +176,7 @@
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             if([data length] > 0 && error == nil) {
                 requestId = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] intValue];
+                [queue cancelAllOperations];
                 [self performSegueWithIdentifier:@"startSegue" sender:self];
             } else {
                 NSLog([error localizedDescription]);
@@ -194,6 +196,8 @@
 - (IBAction)slidePrice:(id)sender {
     targetPrice = (int)(MIN_TARGET_PRICE + (MAX_TARGET_PRICE - MIN_TARGET_PRICE)*self.priceSlider.value);
     [self.priceLabel setText:[NSString stringWithFormat:@"$%d", targetPrice]];
+    [self setBtnTitle];
+    
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -214,30 +218,43 @@
 
 -(void)updateRecomPrice {
     if (currentLocation != nil) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *params = [[NSString stringWithFormat:@"start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
-            NSMutableURLRequest *priceRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@", UBER_API_BASE_URL, PRICE_ESTIMATE_ENDPOINT, params]]];
-            [priceRequest setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
-            [NSURLConnection sendAsynchronousRequest:priceRequest queue:queue completionHandler:^(NSURLResponse *priceResponse, NSData *priceData, NSError *priceError) {
-                if([priceData length] > 0 && priceError == nil) {
-                    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                        NSError *priceErr = nil;
-                        NSDictionary *priceRes = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:priceData] options:NSJSONReadingMutableLeaves error:&priceErr];
-                        NSArray *priceResults = [priceRes objectForKey:@"prices"];
-                        if([priceResults count] > 0) {
-                            NSObject *minPrice = [[priceResults objectAtIndex:0] objectForKey:@"low_estimate"];
-                            float surgeMultiplier = [[[priceResults objectAtIndex:0] objectForKey:@"surge_multiplier"] floatValue];
-                            if (minPrice != nil && minPrice != [NSNull null]) {
-                                startPrice = [[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue];
-                                [self.recomPriceLbl setText:[NSString stringWithFormat:@"$%@", (NSString *)minPrice]];
-                                lowPrice = (int)([[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue]/surgeMultiplier);
-                                [self.lowPriceLbl setText:[NSString stringWithFormat:@"$%d", lowPrice]];
-                            }
+        NSString *params = [[NSString stringWithFormat:@"start_latitude=%f&start_longitude=%f&end_latitude=%f&end_longitude=%f", currentLocation.coordinate.latitude, currentLocation.coordinate.longitude, targetLat, targetLng] stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+        NSMutableURLRequest *priceRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@?%@", UBER_API_BASE_URL, PRICE_ESTIMATE_ENDPOINT, params]]];
+        NSLog([NSString stringWithFormat:@"%@%@?%@", UBER_API_BASE_URL, PRICE_ESTIMATE_ENDPOINT, params]);
+        [priceRequest setValue:[NSString stringWithFormat:@"Bearer %@", [KeychainWrapper keychainStringFromMatchingIdentifier:@"token"]] forHTTPHeaderField:@"Authorization"];
+        [NSURLConnection sendAsynchronousRequest:priceRequest queue:queue completionHandler:^(NSURLResponse *priceResponse, NSData *priceData, NSError *priceError) {
+            if([priceData length] > 0 && priceError == nil) {
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    NSError *priceErr = nil;
+                    NSDictionary *priceRes = [NSJSONSerialization JSONObjectWithData:[NSData dataWithData:priceData] options:NSJSONReadingMutableLeaves error:&priceErr];
+                    NSArray *priceResults = [priceRes objectForKey:@"prices"];
+                    if([priceResults count] > 0) {
+                        NSObject *minPrice = [[priceResults objectAtIndex:0] objectForKey:@"low_estimate"];
+                        float surgeMultiplier = [[[priceResults objectAtIndex:0] objectForKey:@"surge_multiplier"] floatValue];
+                        if (minPrice != nil && minPrice != [NSNull null]) {
+                            startPrice = [[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue];
+                            [self.recomPriceLbl setText:[NSString stringWithFormat:@"$%@", (NSString *)minPrice]];
+                            lowPrice = (int)([[[priceResults objectAtIndex:0] objectForKey:@"low_estimate"] intValue]/surgeMultiplier);
+                            [self.lowPriceLbl setText:[NSString stringWithFormat:@"$%d", lowPrice]];
+                            
+                            [self setBtnTitle];
                         }
-                    }];
-                }
-            }];
-        });
+                    } else {
+                        NSLog(@"no price results");
+                    }
+                }];
+            } else {
+                NSLog([priceError localizedDescription]);
+            }
+        }];
+    }
+}
+
+-(void)setBtnTitle {
+    if (targetPrice >= startPrice) {
+        [self.startBtn setTitle:@"Book Now" forState:UIControlStateNormal];
+    } else {
+        [self.startBtn setTitle:@"Start Monitoring" forState:UIControlStateNormal];
     }
 }
 
