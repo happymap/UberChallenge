@@ -45,3 +45,10 @@ typedef enum {
     BOOK = 0,
     MONITOR = 1
 } ModeEnum;
+
+typedef enum {
+    IPHONE_4 = 0,
+    IPHONE_5 = 1,
+    IPHONE_6 = 2,
+    IPHONE_6S = 3
+} DeviceEnum;

@@ -58,9 +58,22 @@
 */
 
 - (IBAction)login:(id)sender {
-    
     /* login webview */
-    loginModal = [[UberLoginViewController alloc] init];
+    NSString *identifier = @"UberLoginViewController";
+    switch ([util getDeviceType]) {
+        case IPHONE_5:
+            identifier = @"UberLoginViewController";
+            break;
+        case IPHONE_6:
+            identifier = @"UberLoginViewController_6";
+            break;
+        case IPHONE_6S:
+            identifier = @"UberLoginViewController_6s";
+            break;
+        default:
+            break;
+    }
+    loginModal = [[UberLoginViewController alloc] initWithNibName:identifier bundle:nil];
     [loginModal setModalTransitionStyle:UIModalTransitionStyleCoverVertical];
     loginModal.delegate = self;
     UINavigationController *navCon = [[UINavigationController alloc] initWithRootViewController:loginModal];

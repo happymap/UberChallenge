@@ -21,6 +21,8 @@
 		810347FC1AD0FCEF00D997BB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 810347FB1AD0FCEF00D997BB /* Main.storyboard */; };
 		8122FD521AFEB8C9009EB981 /* UserObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 8122FD511AFEB8C9009EB981 /* UserObject.m */; };
 		8122FD571AFF62DD009EB981 /* uber_bg_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 8122FD561AFF62DD009EB981 /* uber_bg_5.png */; };
+		8143D8F91B0DB25A00C4E840 /* UberLoginViewController_6.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8143D8F81B0DB25A00C4E840 /* UberLoginViewController_6.xib */; };
+		8143D8FB1B0DBC6000C4E840 /* UberLoginViewController_6s.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8143D8FA1B0DBC6000C4E840 /* UberLoginViewController_6s.xib */; };
 		816854E21AD4F770007A0FAF /* KeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E11AD4F770007A0FAF /* KeychainWrapper.m */; };
 		816854E51AD4F960007A0FAF /* util.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E41AD4F960007A0FAF /* util.m */; };
 		816854E81AD7986F007A0FAF /* StartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 816854E71AD7986F007A0FAF /* StartViewController.m */; };
@@ -65,6 +67,8 @@
 		8122FD501AFEB8C9009EB981 /* UserObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserObject.h; sourceTree = "<group>"; };
 		8122FD511AFEB8C9009EB981 /* UserObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserObject.m; sourceTree = "<group>"; };
 		8122FD561AFF62DD009EB981 /* uber_bg_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uber_bg_5.png; sourceTree = "<group>"; };
+		8143D8F81B0DB25A00C4E840 /* UberLoginViewController_6.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberLoginViewController_6.xib; sourceTree = "<group>"; };
+		8143D8FA1B0DBC6000C4E840 /* UberLoginViewController_6s.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UberLoginViewController_6s.xib; sourceTree = "<group>"; };
 		816854E01AD4F770007A0FAF /* KeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainWrapper.h; sourceTree = "<group>"; };
 		816854E11AD4F770007A0FAF /* KeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainWrapper.m; sourceTree = "<group>"; };
 		816854E31AD4F8C8007A0FAF /* util.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = util.h; sourceTree = "<group>"; };
@@ -221,6 +225,8 @@
 				818892391AD0EA760078FDDB /* UberLoginViewController.h */,
 				8188923A1AD0EA760078FDDB /* UberLoginViewController.m */,
 				8188923B1AD0EA760078FDDB /* UberLoginViewController.xib */,
+				8143D8F81B0DB25A00C4E840 /* UberLoginViewController_6.xib */,
+				8143D8FA1B0DBC6000C4E840 /* UberLoginViewController_6s.xib */,
 			);
 			name = modal;
 			sourceTree = "<group>";
@@ -352,7 +358,9 @@
 				8188923D1AD0EA760078FDDB /* UberLoginViewController.xib in Resources */,
 				8188921D1AD0C3F10078FDDB /* Images.xcassets in Resources */,
 				8122FD571AFF62DD009EB981 /* uber_bg_5.png in Resources */,
+				8143D8FB1B0DBC6000C4E840 /* UberLoginViewController_6s.xib in Resources */,
 				810347FC1AD0FCEF00D997BB /* Main.storyboard in Resources */,
+				8143D8F91B0DB25A00C4E840 /* UberLoginViewController_6.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -33,4 +33,20 @@
     [[KeychainWrapper keychainStringFromMatchingIdentifier:@"expiresIn"] longLongValue] > [[NSDate date] timeIntervalSince1970];
 }
 
++(DeviceEnum)getDeviceType {
+    switch ((int)[[UIScreen mainScreen] bounds].size.height) {
+        case 480:
+            return IPHONE_4;
+            break;
+        case 568:
+            return IPHONE_5;
+        case 668:
+            return IPHONE_6;
+        case 736:
+            return IPHONE_6S;
+        default:
+            return IPHONE_6;
+    }
+}
+
 @end
