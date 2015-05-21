@@ -37,6 +37,7 @@
 - (void)viewDidAppear:(BOOL)animated {
     UIImage *background = [UIImage imageNamed: @"uber_bg_5.png"];
     UIImageView *bgView = [[UIImageView alloc] initWithImage: background];
+    bgView.frame = self.view.bounds;
     [self.view addSubview: bgView];
     [self.view sendSubviewToBack:bgView];
 }
