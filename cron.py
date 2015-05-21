@@ -95,6 +95,7 @@ def notify_parse(userId, price):
 def repeater():
     scan_table()
     print time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())
-    threading.Timer(INTERVAL, scan_table).start()
+    sys.stdout.flush()
+    threading.Timer(INTERVAL, repeater).start()
 
 repeater()
